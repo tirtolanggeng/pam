@@ -16,12 +16,15 @@ h1 {
 /* === BAGIAN YANG DIUBAH === */
 #video-container {
     position: relative;
-    width: 100%;
-    padding-top: 100%; /* Diubah ke 100% untuk rasio 1:1 (persegi) */
+    width: 40px; /* Diubah menjadi ukuran tetap 40px */
+    height: 40px; /* Diubah menjadi ukuran tetap 40px untuk persegi */
+    /* padding-top tidak lagi diperlukan karena height sudah diatur secara eksplisit */
     border: 2px solid #ddd;
     border-radius: 8px;
     overflow: hidden;
     margin-bottom: 15px;
+    margin-left: auto; /* Untuk menengahkan container jika lebarnya tetap */
+    margin-right: auto; /* Untuk menengahkan container jika lebarnya tetap */
 }
 
 #video {
@@ -45,6 +48,6 @@ h1 {
     border: 1px solid #ccc;
     border-radius: 6px;
     font-size: 1em;
-    box-sizing: border-box; /* Agar padding tidak menambah lebar */
+    box-sizing: border-box;
     text-align: center;
 }
