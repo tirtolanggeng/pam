@@ -1,9 +1,6 @@
 #scanner-container {
-    background-color: white;
-    padding: 25px;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    text-align: center;
 }
 
 #video-container {
@@ -13,13 +10,10 @@
     border: 2px solid #ddd;
     border-radius: 8px;
     overflow: hidden;
-    margin-bottom: 15px;
 }
 
 #video {
     position: relative;
-    top: 0;
-    left: 0;
     width: 50px;
     height: 50px;
 }
@@ -29,6 +23,7 @@
     color: #666;
     margin-bottom: 15px;
 }
+
 
 
 
