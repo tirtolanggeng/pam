@@ -1,45 +1,67 @@
-#scanner-container {
-    background-color: white;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    text-align: center;
-    width: 40px; /* Diubah menjadi ukuran tetap 40px */
-    height: 40px; /* Diubah menjadi ukuran tetap 40px untuk persegi */
-}
-
-h1 {
-    margin-top: 0;
-    color: #007bff;
-}
-
-/* === BAGIAN YANG DIUBAH === */
-#video-container {
+#container {
     position: relative;
-    width: 40px; /* Diubah menjadi ukuran tetap 40px */
-    height: 40px; /* Diubah menjadi ukuran tetap 40px untuk persegi */
-    /* padding-top tidak lagi diperlukan karena height sudah diatur secara eksplisit */
-    border: 2px solid #ddd;
+    width: 90%; /* Sesuaikan lebar container */
+    max-width: 400px;
+    padding: 20px;
+    background: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    overflow: hidden;
-    margin-bottom: 15px;
-    margin-left: auto; /* Untuk menengahkan container jika lebarnya tetap */
-    margin-right: auto; /* Untuk menengahkan container jika lebarnya tetap */
+    text-align: center;
 }
 
 #video {
+    width: 100%;
+    /* Pastikan rasio aspek kamera terlihat wajar, misal 4:3 */
+    aspect-ratio: 4/3; 
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    object-fit: cover; /* Memastikan video menutupi area */
+}
+
+/* -------------------------------------------
+   CSS untuk Kotak Pemindaian 50x50px
+   ------------------------------------------- */
+#scan-box-overlay {
     position: absolute;
     top: 0;
     left: 0;
-    width: 40px;
-    height: 40px;
-    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Tambahkan latar belakang semi-transparan jika perlu */
+    /* background-color: rgba(0, 0, 0, 0.2); */
+    pointer-events: none; /* Penting agar overlay tidak menghalangi interaksi */
 }
 
-#status {
-    font-size: 0.9em;
-    color: #666;
-    margin-bottom: 15px;
+#scan-box {
+    width: 50px; /* Lebar 50px */
+    height: 50px; /* Tinggi 50px (Rasio 1:1) */
+    border: 3px solid #4CAF50; /* Garis batas hijau */
+    box-sizing: border-box;
+    z-index: 10;
+}
+/* ------------------------------------------- */
+
+#output-info {
+    margin: 10px 0;
+    padding: 5px;
+    background-color: #eee;
+    border-radius: 4px;
 }
 
+#qr-result {
+    width: calc(100% - 10px);
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
 
+label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
