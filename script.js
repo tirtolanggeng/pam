@@ -2,7 +2,7 @@
 const video = document.getElementById('video');
 const canvasElement = document.getElementById('canvas');
 const canvas = canvasElement.getContext('2d');
-const resultInput = document.getElementById('result');
+const resultInput = document.getElementById('searchInput');
 const statusMessage = document.getElementById('status');
 let stream = null; // Variabel untuk menyimpan stream kamera
 
@@ -71,4 +71,5 @@ function tick() {
 }
 
 // Mulai kamera saat halaman dimuat
+
 startCamera();
