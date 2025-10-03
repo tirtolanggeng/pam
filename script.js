@@ -1,75 +1,69 @@
-// Mengambil elemen-elemen dari DOM
 const video = document.getElementById('video');
 const canvasElement = document.getElementById('canvas');
 const canvas = canvasElement.getContext('2d');
-const resultInput = document.getElementById('searchInput');
-const statusMessage = document.getElementById('status');
-let stream = null; // Variabel untuk menyimpan stream kamera
+const outputMessage = document.getElementById('output-message');
+const outputResult = document.getElementById('qr-result');
 
 // Fungsi untuk memulai kamera
-async function startCamera() {
-    try {
-        // Meminta akses ke kamera belakang (environment) perangkat
-        const constraints = {
-            video: {
-                facingMode: 'environment' // 'user' untuk kamera depan
-            }
-        };
-        stream = await navigator.mediaDevices.getUserMedia(constraints);
-        video.srcObject = stream;
-        video.setAttribute('playsinline', true); // Diperlukan untuk iOS
-        video.play();
-
-        // Memulai proses pemindaian setelah video siap
-        requestAnimationFrame(tick);
-    } catch (err) {
-        console.error("Error mengakses kamera: ", err);
-        statusMessage.textContent = "Gagal mengakses kamera. Pastikan Anda memberikan izin.";
-    }
+function startCamera() {
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
+        .then((stream) => {
+            video.srcObject = stream;
+            video.setAttribute('playsinline', true); // Diperlukan untuk iOS
+            video.play();
+            requestAnimationFrame(tick);
+        })
+        .catch((err) => {
+            outputMessage.innerText = `Gagal mengakses kamera: ${err.name}`;
+            console.error("Kesalahan akses kamera: ", err);
+        });
 }
 
-// Fungsi yang berjalan terus-menerus untuk memindai QR code
+// Fungsi utama untuk memproses setiap frame video
 function tick() {
-    // Jika video sudah cukup datanya untuk diproses
     if (video.readyState === video.HAVE_ENOUGH_DATA) {
-        statusMessage.textContent = "Mencari QR code...";
+        outputMessage.innerText = "Memindai QR Code...";
+        outputResult.value = "";
         
-        // Sesuaikan ukuran canvas dengan ukuran video
+        // Atur ukuran canvas sesuai dengan video
         canvasElement.height = video.videoHeight;
         canvasElement.width = video.videoWidth;
 
-        // Gambar frame saat ini dari video ke canvas
+        // Gambar frame video ke canvas
         canvas.drawImage(video, 0, 0, canvasElement.width, canvasElement.height);
         
         // Ambil data gambar dari canvas
         const imageData = canvas.getImageData(0, 0, canvasElement.width, canvasElement.height);
         
-        // Coba deteksi QR code menggunakan library jsQR
+        // Gunakan jsQR untuk mendeteksi QR code
         const code = jsQR(imageData.data, imageData.width, imageData.height, {
-            inversionAttempts: 'dontInvert',
+            // Options bisa ditambahkan di sini
         });
 
-        // Jika QR code ditemukan
         if (code) {
-            // Tampilkan hasilnya di input field
-            resultInput.value = code.data;
-            statusMessage.textContent = `QR Code terdeteksi!`;
-            
-            // Hentikan stream kamera untuk menghemat baterai
-            stream.getTracks().forEach(track => track.stop());
-            video.srcObject = null;
-            
-            // Hentikan proses pemindaian
-            return; 
-        } else {
-             statusMessage.textContent = "Arahkan kamera ke QR code...";
+            // QR Code ditemukan
+            outputResult.value = code.data;
+            outputMessage.innerText = "QR Code Ditemukan!";
+
+            // Hentikan pemindaian setelah berhasil
+            stopCamera(); 
+            return; // Penting agar tidak lanjut memanggil requestAnimationFrame
         }
     }
-
-    // Lanjutkan ke frame berikutnya
+    
+    // Ulangi pemindaian pada frame berikutnya
     requestAnimationFrame(tick);
 }
 
-// Mulai kamera saat halaman dimuat
+// Fungsi untuk menghentikan stream kamera
+function stopCamera() {
+    if (video.srcObject) {
+        const tracks = video.srcObject.getTracks();
+        tracks.forEach(track => track.stop());
+        video.srcObject = null;
+        outputMessage.innerText = "Pemindaian Selesai.";
+    }
+}
 
-startCamera();
+// Mulai kamera saat halaman dimuat
+window.addEventListener('load', startCamera);
