@@ -1,21 +1,36 @@
 #scanner-container {
+    background-color: white;
+    padding: 25px;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    width: 90%;
+    max-width: 500px;
 }
 
+h1 {
+    margin-top: 0;
+    color: #007bff;
+}
+
+/* === BAGIAN YANG DIUBAH === */
 #video-container {
     position: relative;
-    width: 50px;
-    height: 50px;
+    width: 100%;
+    padding-top: 100%; /* Diubah ke 100% untuk rasio 1:1 (persegi) */
     border: 2px solid #ddd;
     border-radius: 8px;
     overflow: hidden;
+    margin-bottom: 15px;
 }
 
 #video {
-    position: relative;
-    width: 50px;
-    height: 50px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 #status {
@@ -24,10 +39,12 @@
     margin-bottom: 15px;
 }
 
-
-
-
-
-
-
-
+#result {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1em;
+    box-sizing: border-box; /* Agar padding tidak menambah lebar */
+    text-align: center;
+}
