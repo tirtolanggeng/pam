@@ -162,14 +162,22 @@
 						<h3 style="padding:10px;background:orange;color:white">PENCATATAN METERAN</h3>
 						
 						   <h3>Cari dengan QR</h3>
-							<div id="scanner-container">
-        						<div id="video-container">
-            						<video id="video" playsinline></video>
-        						</div>
-       							 <p id="status">Arahkan kamera ke QR code...</p>
-   						 </div>
- 							 <canvas id="canvas" style="display: none;"></canvas>
+<div id="container">
+        <video id="video" autoplay playsinline></video>
+        
+        <canvas id="canvas" style="display: none;"></canvas>
 
+        <div id="scan-box-overlay">
+            <div id="scan-box"></div>
+        </div>
+
+        <div id="output-info">
+            <p id="output-message">Memuat kamera...</p>
+        </div>
+
+        <label for="qr-result">Hasil Pindai:</label>
+        <input type="text" id="qr-result" readonly placeholder="Hasil QR Code akan muncul di sini">
+    </div>
 
 						
 						<input type="text" id="searchInput" class="form-control" placeholder="Cari..." style="margin:10px auto;">
