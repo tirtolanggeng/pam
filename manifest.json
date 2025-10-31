@@ -1,17 +1,17 @@
 {
-  "name": "bin2dec-v1",
+  "name": "E-Pamsimas",
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#f8fcfa",
   "background_color": "#f8fcfa",
   "icons": [
     {
-      "src": "icons/javascript.png",
+      "src": "iconpam.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "icons/javascript2.png",
+      "src": "iconpam.png",
       "type": "image/png",
       "sizes": "512x512",
       "purpose": "maskable"
