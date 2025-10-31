@@ -1,9 +1,11 @@
 {
-  "name": "E-Pamsimas",
-  "start_url": "index.html",
+"name": "E-Pamsimas Tunggur",
+  "short_name": "E-Pam",
+  "description": "Aplikasi Pamsimas Desa Tunggur.",
+  "start_url": "/index.html",
   "display": "standalone",
-  "theme_color": "#f8fcfa",
-  "background_color": "#f8fcfa",
+  "background_color": "#ffffff",
+  "theme_color": "#007bff",
   "icons": [
     {
       "src": "iconpam.png",
