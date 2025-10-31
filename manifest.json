@@ -1,6 +1,6 @@
 {
   "name": "E-Pamsimas",
-  "start_url": ".",
+  "start_url": "index.html",
   "display": "standalone",
   "theme_color": "#f8fcfa",
   "background_color": "#f8fcfa",
