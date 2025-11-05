@@ -15,8 +15,8 @@ h1 {
 
 #video-container {
     position: relative;
-    width: 100px;
-    padding-top: 75%; /* Aspect ratio 4:3 */
+    width: 20px;
+    padding-top: 20%; /* Aspect ratio 4:3 */
     border: 2px solid #ddd;
     border-radius: 8px;
     overflow: hidden;
@@ -48,3 +48,4 @@ h1 {
     text-align: center;
 
 }
+
