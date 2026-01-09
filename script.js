@@ -81,14 +81,15 @@ const video = document.getElementById("videoPreview");
                     // Jika QR Code ditemukan
                     console.log("Found QR code", code.data);
                     
-                    // Masukkan ke input text
+                    // Masukkan data QR ke input text
                     searchInput.value = code.data;
-
+                
+                    // >>> BAGIAN PENTING: Panggil fungsi pencarian secara manual <<<
+                    performSearch(); 
+                
                     // Opsional: Beri efek visual pada kotak (border hijau)
                     document.querySelector('.scanner-container').style.borderColor = "#4CAF50";
                     
-                    // Hentikan scan sejenak agar tidak spamming (opsional)
-                    // return; 
                 } else {
                     // Kembalikan warna border jika tidak ada QR
                     document.querySelector('.scanner-container').style.borderColor = "#333";
