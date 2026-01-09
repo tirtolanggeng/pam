@@ -1,0 +1,22 @@
+{
+"name": "E-Pamsimas Tunggur",
+  "short_name": "E-Pam 2026",
+  "description": "Aplikasi Pamsimas Desa Tunggur.",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#007bff",
+  "icons": [
+    {
+      "src": "iconpam.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "iconpam.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
+    }
+  ]
+}

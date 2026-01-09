@@ -1,0 +1,1940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>E-PAMSIMAS TUNGGUR</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"/>
+	<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+	<link rel="icon" type="image/x-icon" href="https://tras.id/wp-content/uploads/2023/02/1-1536x730.png">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+	<link rel="stylesheet" href="style.css">
+	<link rel="manifest" href="manifest.json">
+	<style>
+		#formPetugas, #formPelanggan{
+			padding:15px;
+			background:lightblue;
+		}
+		.status{color:red !important}
+		.statusSudah{color:green !important}
+		.hidden {
+			display: none;
+		}
+		.tg  {border-collapse:collapse;border-spacing:0;width:100%}
+		.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+		  overflow:hidden;padding:10px 5px;word-break:normal;}
+		.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+		  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+		.tg .tg-0lax{text-align:left;vertical-align:top;padding:3px}
+		
+		.receipt {
+		  font-family: monospace;
+		  font-size: 12px;
+		  padding: 5px;
+		  /* page-break-after: always; <-- Hapus ini agar menyambung */
+		}
+		.center {
+		  text-align: center;
+		}
+		.right {
+		  text-align: right;
+		}
+		.bold {
+		  font-weight: bold;
+		}
+		.line {
+		  border-top: 1px dashed #000;
+		  margin: 5px 0;
+		}
+		
+		@media print {
+		  .noprint{display:none}
+		  .kotakstruk{border:0px solid gray !important;}
+		  table {
+			page-break-inside: avoid;
+			width: 100%;
+		  }
+		  tr {
+			page-break-inside: avoid;
+		  }
+		  th, td {
+			page-break-inside: avoid;
+		  }
+		}
+	</style>
+</head>
+<body>
+    <!-- Div pertama -->
+	<div id="div1" class="text-center awal" style="display:none; min-height: 100vh; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); padding-top: 60px;">
+		<div class="container">
+			<div class="card shadow-lg border-0 mx-auto rounded-5" style="max-width: 400px; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px);">
+				<div class="card-body p-5">
+					
+					<div class="mb-4">
+						<div class="logo-wrapper mx-auto shadow-sm d-flex align-items-center justify-content-center" style="width: 160px; height: 160px; background: white; border-radius: 50%; border: 4px solid #fff;">
+							<img id="logodepan" class="logo img-fluid" src="" style="display:none; object-fit: contain;">
+						</div>
+					</div>
+
+					<div class="mb-5">
+						<h2 class="namaUsaha fw-bold mb-1" style="color: #0d6efd; letter-spacing: -0.5px;"></h2>
+						<h6 class="alamatUsaha text-muted fw-light"></h6>
+					</div>
+
+					<hr class="my-4 opacity-25">
+
+					<div class="login-section">
+						<p class="text-uppercase fw-bold small text-secondary mb-4" style="letter-spacing: 2px;">Masuk Ke Sistem</p>
+						
+						<button id="btnPetugas" class="btn btn-primary btn-lg w-100 rounded-pill shadow-sm py-3 fw-bold mb-3 transition-hover">
+							<i class="bi bi-shield-lock me-2"></i> LOGIN PETUGAS
+						</button>
+						
+						</div>
+
+					<div class="mt-4">
+						<span class="badge bg-light text-dark border p-2 rounded-pill px-3">
+							<i class="bi bi-qr-code-scan text-primary me-1"></i> QR Scanner Siap!
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+    <!-- Div kedua -->
+	<div id="div2" class="hal" style="display:none; min-height: 100vh; background-color: #f8f9fa;">
+		<div class="container">
+			<div class="row justify-content-center align-items-center" style="min-height: 100vh;">
+				<div class="col-12 col-md-6 col-lg-4">
+					<div class="card shadow-lg border-0 rounded-4">
+						<div class="card-body p-4 p-md-5">
+							
+							<div class="text-center mb-4">
+								<div class="bg-success bg-opacity-10 d-inline-block p-3 rounded-circle mb-3">
+									<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-badge text-success" viewBox="0 0 16 16">
+										<path d="M6.5 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zM11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+										<path d="M4.5 0A2.5 2.5 0 0 0 2 2.5V14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2.5A2.5 2.5 0 0 0 11.5 0h-7zM3 2.5A1.5 1.5 0 0 1 4.5 1h7A1.5 1.5 0 0 1 13 2.5v10.795a4.2 4.2 0 0 0-.776-.492C11.392 12.387 10.063 12 8 12s-3.392.387-4.224.803a4.2 4.2 0 0 0-.776.492V2.5z"/>
+									</svg>
+								</div>
+								<h3 class="fw-bold text-dark">Login Petugas</h3>
+								<p class="text-muted small">Silakan masuk untuk akses sistem</p>
+							</div>
+
+							<form id="formPetugas">
+								<div class="mb-3">
+									<label for="usernamePetugas" class="form-label fw-semibold">Username</label>
+									<div class="input-group">
+										<span class="input-group-text bg-light border-end-0"><i class="bi bi-person"></i></span>
+										<input type="text" id="usernamePetugas" class="form-control bg-light border-start-0" placeholder="Masukkan username" required>
+									</div>
+								</div>
+
+								<div class="mb-4">
+									<label for="passwordPetugas" class="form-label fw-semibold">Password</label>
+									<div class="input-group">
+										<span class="input-group-text bg-light border-end-0"><i class="bi bi-lock"></i></span>
+										<input type="password" id="passwordPetugas" class="form-control bg-light border-start-0" placeholder="••••••••" required>
+									</div>
+								</div>
+
+								<div class="d-grid gap-2">
+									<button type="submit" class="btn btn-success btn-lg fw-bold shadow-sm rounded-3">
+										LOGIN
+									</button>
+									<button type="button" class="btn btn-outline-secondary border-0 btn-sm mt-2" onclick="awal()">
+										CANCEL
+									</button>
+								</div>
+							</form>
+
+						</div>
+					</div>
+					
+					<p class="text-center mt-4 text-muted small">
+						&copy; <span id="currentYear"></span> Ery Rohmansyah Dev.
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+    <!-- Div ketiga -->
+    <div id="div3" class="hal" style="padding:20px;display:none">
+        <h3>Login Pelanggan</h3>
+        <form id="formPelanggan">
+            <div class="mb-3">
+                <label for="usernamePelanggan" class="form-label">Username</label>
+                <input type="text" id="usernamePelanggan" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="passwordPelanggan" class="form-label">Password</label>
+                <input type="password" id="passwordPelanggan" class="form-control" required>
+            </div>
+            <div style="text-align:center">
+				<span class="btn btn-secondary" onclick="awal()">CANCEL</span>
+				<button type="submit" class="btn btn-success">LOGIN</button>
+			</div>
+        </form>
+    </div>
+	<div id="halPetugas" class="hal" style="display:none">
+		<nav id="navbardashboard" class="noprint navbar navbar-expand-lg navbar-dark shadow-sm sticky-top" style="background: linear-gradient(90deg, #0d6efd 0%, #0a58ca 100%); border-bottom: 1px solid rgba(255,255,255,0.1);">
+			<div class="container">
+				<a class="navbar-brand fw-bold d-flex align-items-center" href="#">
+					<div class="bg-white rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 32px; height: 32px;">
+						<i class="bi bi-speedometer2 text-primary"></i>
+					</div>
+					<span style="letter-spacing: 0.5px;">Admin Panel</span>
+				</a>
+
+				<button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+				<div class="collapse navbar-collapse" id="navbarNav">
+					<ul class="navbar-nav ms-auto align-items-center">
+						<li class="nav-item me-2">
+							<a class="nav-link px-3 rounded-pill transition-all d-flex align-items-center" href="#" onclick="home()">
+								<i class="bi bi-house-door me-2"></i> Home
+							</a>
+						</li>
+						
+						<li class="nav-item me-2">
+							<a class="nav-link adm catat px-3 rounded-pill transition-all d-flex align-items-center" href="#" onclick="siapCatat()" style="display:none">
+								<i class="bi bi-pencil-square me-2"></i> Catat Meteran
+							</a>
+						</li>
+						
+						<li class="nav-item me-2">
+							<a class="nav-link adm px-3 rounded-pill transition-all d-flex align-items-center" href="#" onclick="siapStruk()" style="display:none">
+								<i class="bi bi-wallet2 me-2"></i> Pembayaran
+							</a>
+						</li>
+
+						<div class="vr d-none d-lg-block mx-2 text-white opacity-25" style="height: 30px;"></div>
+						
+						<li class="nav-item">
+							<a class="nav-link btn-logout px-3 rounded-pill d-flex align-items-center text-white bg-danger bg-opacity-75 ms-lg-2 mt-2 mt-lg-0" href="#" onclick="logout()">
+								<i class="bi bi-box-arrow-right me-2"></i> Logout
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<div id="divok" style="padding:0px">
+			<div id="welcomePetugas" style="padding:20px">
+				<h2 class="namaUsaha" style="color:orange"></h2>
+				<h3>Selamat Datang <span class="namaPetugas"></span>!</h3>
+				<h6><span class="posisiPetugas"></span> | <span class="nohpPetugas"></span></h6>
+				
+				<hr/>
+				<div class="row">
+					<div id="btSiapCatat" class="col-12 col-md-6 adm catat" onclick="siapCatat()" style="padding:10px;text-align:center;cursor:pointer;display:none">
+						<div style="border:1px solid lightblue;border-radius:5px;padding:5px;min-height:200px">
+							<div><img src="https://cdn2.iconfinder.com/data/icons/smart-city-36/90/90_water_meter_counter_measurement_meter_plumbing_water_gauge-512.png" style="width: 150px;"></div>
+							<div>Pencatatan Meteran</div>
+						</div>
+					</div>
+					<div id="btSiapTagih" class="col-12 col-md-6 adm" style="padding:10px;text-align:center;cursor:pointer;display:none" onclick="siapStruk()">
+						<div style="border:1px solid lightblue;border-radius:5px;padding:5px;min-height:200px">
+							<div><img src="https://images.icon-icons.com/4216/PNG/512/cash_purse_finance_payment_wallet_management_business_icon_263060.png" style="width: 150px;"></div>
+							<div>Pembayaran Tagihan</div>
+						</div>
+					</div>
+					<div id="btRekapAll" class="col-12 col-md-6 adm" style="padding:10px;text-align:center;cursor:pointer;display:none" onclick="Rekapalltag()">
+						<div style="border:1px solid lightblue;border-radius:5px;padding:5px;min-height:200px">
+							<div><img src="https://images.icon-icons.com/20/PNG/256/business_salesreport_salesreport_negocio_2353.png" style="width: 150px;"></div>
+							<div>Rekap Tagihan</div>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="pencatat" style="display:none;padding:20px">
+				<div id="catatSemua">
+					<div id="siapCatat" class="table-responsive" style="margin-top:10px;display:none">
+						<h3 style="padding:10px;background:orange;color:white">PENCATATAN METERAN</h3>
+
+
+	<h3>Cari Dengan QR</h3>
+
+    <div class="scanner-container">
+        <div class="loading-text">Memuat Kamera...</div>
+        <video id="videoPreview" playsinline muted></video>
+    </div>
+
+    <canvas id="canvasHidden"></canvas>
+
+
+
+						<input type="text" id="searchInput" class="form-control" placeholder="Cari..." style="margin:10px auto;">
+						<table id="tabelPelanggan" class="table table-bordered table-striped">
+							<thead class="thead-dark">
+								<tr>
+									<th>No</th>
+									<th>No Meter / Nama</th>
+									<th>Aksi</th>
+								</tr>
+							</thead>
+							<tbody id="tabelPelangganBody">
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div id="detailPelanggan" style="display:none">
+					<div style="margin:10px auto;padding:10px;background:green;color:white">
+						<h5 style="font-weight:bold;"><span id="detailNama"></span></h5>
+						<h6><span id="detailNomor"></span> | <span id="detailAlamat"></span></h6>
+						<div class="btn btn-light" style="font-size:small" onclick="kembaliCatat()">GANTI PELANGGAN</div>
+					</div>
+					<table id="tabelDetail" class="table table-bordered table-striped">
+						<thead class="thead-dark">
+							<tr>
+								<th>Waktu</th>
+								<th>Meter</th>
+								<th>Aksi</th>
+							</tr>
+						</thead>
+						<tbody id="tabelDetailBody">
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div id="dataStruk" style="display:none">
+				<div id="dataStrukSemua" style="padding:20px">
+					<div class="table-responsive" style="margin-top:10px;">
+						<h3 style="padding:10px;background:orange;color:white">DATA PEMBAYARAN</h3>
+						<div style="padding:20px;border: 1px solid gray;border-radius: 5px;">
+							<select id="bulantransaksi" class="form-control" style="margin-bottom:10px">
+								<option value='0' selected>Semua Bulan</option>
+								<option value='1'>Januari</option>
+								<option value='2'>Februari</option>
+								<option value='3'>Maret</option>
+								<option value='4'>April</option>
+								<option value='5'>Mei</option>
+								<option value='6'>Juni</option>
+								<option value='7'>Juli</option>
+								<option value='8'>Agustus</option>
+								<option value='9'>September</option>
+								<option value='10'>Oktober</option>
+								<option value='11'>November</option>
+								<option value='12'>Desember</option>
+							</select>
+							<button class="btn btn-secondary" onclick="lihatperbulan()">Lihat Pemakaian</button>
+							<button class="btn btn-primary" onclick="struk()">Cetak Struk</button>
+						</div>
+						<input type="text" id="searchInputStruk" class="form-control" placeholder="Cari..." style="margin:10px auto;">
+						<table id="tabelStruk" class="table table-bordered table-striped" style="width: max-content;">
+							<thead class="thead-dark" style="vertical-align: middle;text-align:center;line-height: normal;">
+								<tr>
+									<th onclick="pilihsemua()">Pilih Semua</th>
+									<th>No</th>
+									<th>Nama / No Meter</th>
+									<th>Thn Lalu</th>
+									<th>Jan</th>
+									<th>Feb</th>
+									<th>Mar</th>
+									<th>Apr</th>
+									<th>Mei</th>
+									<th>Jun</th>
+									<th>Jul</th>
+									<th>Agu</th>
+									<th>Sep</th>
+									<th>Okt</th>
+									<th>Nov</th>
+									<th>Des</th>
+									<th>Pakai</th>
+								</tr>
+							</thead>
+							<tbody id="tabelStrukBody">
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div id="detailPembayaran" style="display:none">
+					<div style="margin:10px auto;padding:10px;background:green;color:white">
+						<h5 style="font-weight:bold;"><span id="detailNamaBayar"></span></h5>
+						<h6><span id="detailNomorBayar"></span> | <span id="detailAlamatbayar"></span></h6>
+						<div class="btn btn-light" style="font-size:small" onclick="kembaliBayar()">GANTI PELANGGAN</div>
+					</div>
+					<table id="tabelDetailPembayaran" class="table table-bordered table-striped">
+						<thead class="thead-dark">
+							<tr>
+								<th>Waktu</th>
+								<th>Meter</th>
+								<th>Pemakaian</th>
+								<th>Biaya</th>
+								<th>Aksi</th>
+							</tr>
+						</thead>
+						<tbody id="tabelDetailPembayaranBody">
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div id="halStruk" class="hal" style="display:none">
+			<nav id="navbarstruk" class="noprint navbar navbar-expand-lg navbar-dark bg-primary">
+				<div class="container-fluid">
+					<a class="navbar-brand" href="#" onclick="keHalSemuaStruk()">Kembali</a>
+					<button onclick="window.print()">Cetak Struk</button>
+				</div>
+			</nav>
+			<div id="halStrukIsi" style="padding:10px;"></div>
+		</div>
+	</div>
+	<div id="halPelanggan" class="hal" style="display:none">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="#">Dashboard Pelanggan</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNav">
+					<ul class="navbar-nav ms-auto">
+						<li class="nav-item">
+							<a class="nav-link" href="#" onclick="logout()">Logout</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<div style="padding:20px">
+			<div id="welcomePelanggan">
+				<h2 class="namaUsaha" style="color:orange"></h2>
+				<h3>Selamat Datang <span class="namaPelanggan"></span>!</h3>
+				<h6>Kelompok: <span class="posisiPelanggan"></span> | Alamat: <span class="ketPelanggan"></span></h6>
+			</div>
+			<div>
+				<div id="btLihatTagihan" class="btn btn-primary" onclick="lihatTagihan()">Lihat Tagihan</div>
+				<div id="tagihan" class="table-responsive" style="margin-top:10px;display:none">
+					<table id="tabelTagihan" class="table table-bordered table-striped">
+						<thead class="thead-dark">
+							<tr>
+								<th>Waktu</th>
+								<th>Angka Meteran</th>
+								<th>Kubik Terpakai</th>
+								<th>Biaya</th>
+								<th>Status</th>
+							</tr>
+						</thead>
+						<tbody id="tabelTagihanBody">
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+    
+  
+<script src="script.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+		if(localStorage.getItem('statuslogin')=='petugas'){
+			loadHalPetugas();
+			$('#halPetugas').show();
+		}else if(localStorage.getItem('statuslogin')=='pelanggan'){
+			loadHalPelanggan();
+			$('#halPelanggan').show();
+		}else{
+			firstLoad();
+		}
+        $("#btnPetugas").click(function() {
+            loginPetugas();
+        });
+		$("#btnPelanggan").click(function() {
+            loginPelanggan();
+        });
+
+        // Form login petugas
+        $("#formPetugas").submit(function(e) {
+			e.preventDefault();
+			logPetugas();
+		});
+		
+		// Form login pelanggan
+        $("#formPelanggan").submit(function(e) {
+			e.preventDefault();
+			logPelanggan();
+		});
+		
+		$(document).on('click', '.nav-link', function () {
+			$('.navbar-collapse').collapse('hide');
+		});
+    });
+	
+	var urlGAS= 'https://script.google.com/macros/s/AKfycbwd73D-MhNsoR_jun0jrKJRpwW124Pb9QBIRvpU-gyuVTiWo3VMIvSlAlO8Y_kIhjTj0Q/exec';
+    let dataPetugas = [];
+    let dataPelanggan = [];
+    let dataPembayaran = [];
+	let terpilih = [];
+	
+	function firstLoad() {
+		Swal.fire({
+			title: 'Selamat Datang',
+			text: 'Mohon Tunggu Sebentar',
+			allowOutsideClick: false,
+			didOpen: () => {
+				Swal.showLoading();
+			}
+		});
+        $.ajax({
+            url: urlGAS + "?mode=load",
+            method: 'GET',
+            dataType: 'json',
+            success: function(response) {
+				console.log(response);
+				$('.namaUsaha').html(response[0].Keterangan);
+				$('.alamatUsaha').html(response[1].Keterangan);
+				localStorage.setItem("namaUsaha",response[0].Keterangan);
+				localStorage.setItem("alamatUsaha",response[1].Keterangan);
+				localStorage.setItem("logo",response[2].Keterangan);
+				$('.logo').attr('src', cekGambar(response[2].Keterangan));
+				$('#logodepan').show();
+				localStorage.setItem("tahunBuku",response[3].Keterangan);
+				localStorage.setItem("jumlahKat",response[4].Keterangan);
+				localStorage.setItem("kat1",response[5].Keterangan);
+				localStorage.setItem("kat2",response[6].Keterangan);
+				localStorage.setItem("kat3",response[7].Keterangan);
+				
+				localStorage.setItem("printerBiasa",response[10].Keterangan);
+				localStorage.setItem("printerThermal58",response[11].Keterangan);
+				localStorage.setItem("printerThermal88",response[12].Keterangan);
+				
+				for(i=1;i<=response[4].Keterangan;i++){
+					if(i==1){
+						set1 = 0;set2 = 1;set3 = 2;set4 = 3;set5 = 4;set6 = 5;
+					}else if(i==2){
+						set1 = 8;set2 = 9;set3 = 10;set4 = 11;set5 = 12;set6 = 13;
+					}else if(i==3){
+						set1 = 16;set2 = 17;set3 = 18;set4 = 19;set5 = 20;set6 = 21;
+					}
+					
+					localStorage.setItem("kat"+i+"biaya1",response[set1]['TARIF']+'#'+response[set1]['JAN']+'#'+response[set1]['FEB']+'#'+response[set1]['MAR']+'#'+response[set1]['APR']+'#'+response[set1]['MEI']+'#'+response[set1]['JUN']+'#'+response[set1]['JUL']+'#'+response[set1]['AGU']+'#'+response[set1]['SEP']+'#'+response[set1]['OKT']+'#'+response[set1]['NOV']+'#'+response[set1]['DES']);
+					localStorage.setItem("kat"+i+"biaya2",response[set2]['TARIF']+'#'+response[set2]['JAN']+'#'+response[set2]['FEB']+'#'+response[set2]['MAR']+'#'+response[set2]['APR']+'#'+response[set2]['MEI']+'#'+response[set2]['JUN']+'#'+response[set2]['JUL']+'#'+response[set2]['AGU']+'#'+response[set2]['SEP']+'#'+response[set2]['OKT']+'#'+response[set2]['NOV']+'#'+response[set2]['DES']);
+					localStorage.setItem("kat"+i+"biaya3",response[set3]['TARIF']+'#'+response[set3]['JAN']+'#'+response[set3]['FEB']+'#'+response[set3]['MAR']+'#'+response[set3]['APR']+'#'+response[set3]['MEI']+'#'+response[set3]['JUN']+'#'+response[set3]['JUL']+'#'+response[set3]['AGU']+'#'+response[set3]['SEP']+'#'+response[set3]['OKT']+'#'+response[set3]['NOV']+'#'+response[set3]['DES']);
+					localStorage.setItem("kat"+i+"biaya4",response[set4]['TARIF']+'#'+response[set4]['JAN']+'#'+response[set4]['FEB']+'#'+response[set4]['MAR']+'#'+response[set4]['APR']+'#'+response[set4]['MEI']+'#'+response[set4]['JUN']+'#'+response[set4]['JUL']+'#'+response[set4]['AGU']+'#'+response[set4]['SEP']+'#'+response[set4]['OKT']+'#'+response[set4]['NOV']+'#'+response[set4]['DES']);
+					localStorage.setItem("kat"+i+"biayaAdmin",response[set5]['TARIF']+'#'+response[set5]['JAN']+'#'+response[set5]['FEB']+'#'+response[set5]['MAR']+'#'+response[set5]['APR']+'#'+response[set5]['MEI']+'#'+response[set5]['JUN']+'#'+response[set5]['JUL']+'#'+response[set5]['AGU']+'#'+response[set5]['SEP']+'#'+response[set5]['OKT']+'#'+response[set5]['NOV']+'#'+response[set5]['DES']);
+					localStorage.setItem("kat"+i+"biayaLain",response[set6]['TARIF']+'#'+response[set6]['JAN']+'#'+response[set6]['FEB']+'#'+response[set6]['MAR']+'#'+response[set6]['APR']+'#'+response[set6]['MEI']+'#'+response[set6]['JUN']+'#'+response[set6]['JUL']+'#'+response[set6]['AGU']+'#'+response[set6]['SEP']+'#'+response[set6]['OKT']+'#'+response[set6]['NOV']+'#'+response[set6]['DES']);
+				}
+								
+				Swal.close();
+				$('#div1').show();
+            },
+            error: function() {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Gagal menginisiasi!'
+                });
+            }
+        });
+    }
+    // Fungsi untuk login petugas
+    function loginPetugas() {
+		Swal.fire({
+			title: 'Loading...',
+			text: 'Mohon tunggu sementara data petugas dimuat.',
+			allowOutsideClick: false,
+			didOpen: () => {
+				Swal.showLoading();
+			}
+		});
+        $.ajax({
+            url: urlGAS + "?mode=loginpetugas",
+            method: 'GET',
+            dataType: 'json',
+            success: function(response) {
+				//console.log(response);
+                dataPetugas = response;
+                $("#div1").hide();
+                $("#div2").show();
+				Swal.close();
+            },
+            error: function() {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Gagal memuat data'
+                });
+            }
+        });
+    }
+	// Fungsi untuk login petugas
+    function loginPelanggan() {
+		Swal.fire({
+			title: 'Loading...',
+			text: 'Mohon tunggu sementara data pelanggan dimuat.',
+			allowOutsideClick: false,
+			didOpen: () => {
+				Swal.showLoading();
+			}
+		});
+        $.ajax({
+            url: urlGAS + "?mode=loginpelanggan",
+            method: 'GET',
+            dataType: 'json',
+            success: function(response) {
+				//console.log(response);
+                dataPelanggan = response;
+                $("#div1").hide();
+                $("#div3").show();
+				Swal.close();
+            },
+            error: function() {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Gagal memuat data'
+                });
+            }
+        });
+    }
+	function logPetugas(){
+		Swal.fire({
+			title: 'Loading...',
+			text: 'Memeriksa Petugas',
+			allowOutsideClick: false,
+			didOpen: () => {
+				Swal.showLoading();
+			}
+		});
+
+		const username = $("#usernamePetugas").val();
+		const password = $("#passwordPetugas").val();
+
+		const petugas = dataPetugas.find(item => item.ID === username);
+		const barisData = petugas ? petugas["Baris Data"] : null;
+
+		if (barisData !== null) {
+			$.ajax({
+				url: urlGAS + "?mode=loginpetugasok&user=" + username + "&pass=" + password + "&baris=" + barisData,
+				method: 'GET',
+				dataType: 'json',
+				success: function(response) {
+					Swal.close(); // Close loading first
+					if (response.status == "success") {
+						// Do something on success
+						Swal.fire({
+							icon: 'success',
+							title: 'Success',
+							text: 'Login Berhasil!',
+							confirmButtonText: 'OK'
+						});
+						localStorage.setItem('statuslogin','petugas');
+						localStorage.setItem('user',username);
+						localStorage.setItem('baris',barisData);
+						//console.log(response.message);
+						detail = response.message.split('#');
+						localStorage.setItem('posisi',detail[0]);
+						localStorage.setItem('nama',detail[1]);
+						localStorage.setItem('ket',detail[2]);
+						loadHalPetugas();
+					} else {
+						// Show error if login fails
+						Swal.fire({
+							icon: 'error',
+							title: 'Error',
+							text: 'Username/Password Salah. Silakan Ulangi Lagi!',
+							confirmButtonText: 'OK'
+						});
+					}
+				},
+				error: function() {
+					Swal.close(); // Close loading if there is an error
+					Swal.fire({
+						icon: 'error',
+						title: 'Error',
+						text: 'Gagal memuat data',
+						confirmButtonText: 'OK'
+					});
+				}
+			});
+		} else {
+			Swal.close(); // Close loading before showing error
+			
+			setTimeout(function() {
+				Swal.fire({
+					icon: 'error',
+					title: 'Error',
+					text: 'Pengguna tidak ditemukan!',
+					confirmButtonText: 'OK'
+				});
+			}, 500);
+		}
+	}
+	
+	function logPelanggan(){
+		Swal.fire({
+			title: 'Loading...',
+			text: 'Memeriksa Pelanggan',
+			allowOutsideClick: false,
+			didOpen: () => {
+				Swal.showLoading();
+			}
+		});
+
+		const username = $("#usernamePelanggan").val();
+		const password = $("#passwordPelanggan").val();
+
+		const pelanggan = dataPelanggan.find(item => item["Nomor Pelanggan"] === username);
+		const barisData = pelanggan ? pelanggan["Baris Data"] : null;
+
+		if (barisData !== null) {
+			$.ajax({
+				url: urlGAS + "?mode=loginpelangganok&user=" + username + "&pass=" + password + "&baris=" + barisData,
+				method: 'GET',
+				dataType: 'json',
+				success: function(response) {
+					Swal.close(); // Close loading first
+					if (response.status == "success") {
+						// Do something on success
+						Swal.fire({
+							icon: 'success',
+							title: 'Success',
+							text: 'Login Berhasil!',
+							confirmButtonText: 'OK'
+						});
+						localStorage.setItem('statuslogin','pelanggan');
+						localStorage.setItem('user',username);
+						localStorage.setItem('baris',barisData);
+						//console.log(response.message);
+						detail = response.message.split('#');
+						localStorage.setItem('posisi',detail[0]);
+						localStorage.setItem('nama',detail[1]);
+						localStorage.setItem('ket',detail[2]);
+						loadHalPelanggan();
+					} else {
+						// Show error if login fails
+						Swal.fire({
+							icon: 'error',
+							title: 'Error',
+							text: 'Username/Password Salah. Silakan Ulangi Lagi!',
+							confirmButtonText: 'OK'
+						});
+					}
+				},
+				error: function() {
+					Swal.close(); // Close loading if there is an error
+					Swal.fire({
+						icon: 'error',
+						title: 'Error',
+						text: 'Gagal memuat data',
+						confirmButtonText: 'OK'
+					});
+				}
+			});
+		} else {
+			Swal.close(); // Close loading before showing error
+			
+			setTimeout(function() {
+				Swal.fire({
+					icon: 'error',
+					title: 'Error',
+					text: 'Masukkan Nomor Meteran Air dengan Benar! ',
+					confirmButtonText: 'OK'
+				});
+			}, 500);
+		}
+	}
+	function awal(){
+		$('.awal').show();
+		$('.hal').hide();
+	}
+	function logout(){
+		localStorage.clear();
+		sessionStorage.clear();
+		$('.awal').show();
+		$('.hal').hide();
+		firstLoad();
+	}
+	function loadHalPetugas(){
+		$('.namaPetugas').html(localStorage.getItem('nama'));
+		$('.posisiPetugas').html(localStorage.getItem('posisi'));
+		$('.nohpPetugas').html(localStorage.getItem('ket'));
+		$('.namaUsaha').html(localStorage.getItem('namaUsaha'));
+		if(localStorage.getItem('posisi')=="Pencatat Meteran"){
+			$('.catat').show();
+		}else{
+			$('.adm').show();
+			$('.catat').show();
+		}
+		$("#div2").hide();
+		$("#halPetugas").show();
+	}
+	function loadHalPelanggan(){
+		$('.namaPelanggan').html(localStorage.getItem('nama'));
+		$('.posisiPelanggan').html(localStorage.getItem('posisi'));
+		$('.ketPelanggan').html(localStorage.getItem('ket'));
+		$('.namaUsaha').html(localStorage.getItem('namaUsaha'));
+		$("#div3").hide();
+		$("#halPelanggan").show();
+	}
+	function siapCatat(){
+		Swal.fire({
+			title: 'Loading...',
+			text: 'Memuat Data Pelanggan',
+			allowOutsideClick: false,
+			didOpen: () => {
+				Swal.showLoading();
+			}
+		});
+		$.ajax({
+            url: urlGAS + "?mode=pelanggan",
+            method: 'GET',
+            dataType: 'json',
+            success: function(response) {
+				//console.log(response);
+				dataPelanggan = response;
+				no=1;
+				response.forEach(function(pelanggan) {
+					$('#tabelPelangganBody').append('<tr><td>'+no+'</td><td>'+pelanggan["Nomor Pelanggan"]+'<br/>'+pelanggan["Nama"]+'</td><td><button class="btn btn-primary" onclick="lihat(\''+pelanggan["Nomor Pelanggan"]+'\')">Detail</button></td></tr>');
+					no++;
+				});
+				$('#pencatat').show();
+				$('#siapCatat').show();
+				$("#catatSemua").show();
+				$('#welcomePetugas').hide();
+				$("#dataStruk").hide();
+				dttabel('searchInput','tabelPelanggan');
+				Swal.close();
+            },
+            error: function() {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Gagal memuat data!'
+                });
+            }
+        });
+	}
+	function dttabel(input,tabel){
+		const searchInput = document.getElementById(input);
+		const dataTable = document.getElementById(tabel);
+		const tableRows = dataTable.getElementsByTagName('tr');
+
+		searchInput.addEventListener('keyup', function() {
+			const searchTerm = searchInput.value.toLowerCase();
+
+			for (let i = 1; i < tableRows.length; i++) { // Mulai dari 1 untuk menghindari baris header
+				const row = tableRows[i];
+				let found = false;
+
+				for (let j = 0; j < row.cells.length; j++) {
+					const cell = row.cells[j];
+
+					if (cell.innerText.toLowerCase().includes(searchTerm)) {
+						found = true;
+						break;
+					}
+				}
+
+				if (found) {
+					row.style.display = '';
+				} else {
+					row.style.display = 'none';
+				}
+			}
+		});
+	}
+	function lihat(nometer){
+		pelanggan = dataPelanggan.find(item => item["Nomor Pelanggan"] == nometer);
+		if(pelanggan){
+			//alert(pelanggan["Nama"]);
+			sessionStorage.setItem('pilihPelanggan',pelanggan["Nomor Pelanggan"]);
+			sessionStorage.setItem('pilihBaris',pelanggan["Baris Data"]);
+			$("#detailNomor").html(pelanggan["Nomor Pelanggan"]);
+			$("#detailNama").html(pelanggan["Nama"]);
+			$("#detailAlamat").html(pelanggan["Alamat"]);
+			$("#tabelDetailBody").html('');
+			$("#tabelDetailBody").append('<tr><td>Tahun Lalu</td><td>'+pelanggan["Tahun Lalu"]+'</td><td></td></tr>');
+			$("#tabelDetailBody").append('<tr><td>Januari</td><td id="'+pelanggan["Nomor Pelanggan"]+'-1">'+pelanggan["Jan"]+'</td><td><button class="btn btn-success" onclick="pilihPelanggan(1)">CATAT</button></td></tr>');
+			$("#tabelDetailBody").append('<tr><td>Februari</td><td id="'+pelanggan["Nomor Pelanggan"]+'-2">'+pelanggan["Feb"]+'</td><td><button class="btn btn-success" onclick="pilihPelanggan(2)">CATAT</button></td></tr>');
+			$("#tabelDetailBody").append('<tr><td>Maret</td><td id="'+pelanggan["Nomor Pelanggan"]+'-3">'+pelanggan["Mar"]+'</td><td><button class="btn btn-success" onclick="pilihPelanggan(3)">CATAT</button></td></tr>');
+			$("#tabelDetailBody").append('<tr><td>April</td><td id="'+pelanggan["Nomor Pelanggan"]+'-4">'+pelanggan["Apr"]+'</td><td><button class="btn btn-success" onclick="pilihPelanggan(4)">CATAT</button></td></tr>');
+			$("#tabelDetailBody").append('<tr><td>Mei</td><td id="'+pelanggan["Nomor Pelanggan"]+'-5">'+pelanggan["Mei"]+'</td><td><button class="btn btn-success" onclick="pilihPelanggan(5)">CATAT</button></td></tr>');
+			$("#tabelDetailBody").append('<tr><td>Juni</td><td id="'+pelanggan["Nomor Pelanggan"]+'-6">'+pelanggan["Jun"]+'</td><td><button class="btn btn-success" onclick="pilihPelanggan(6)">CATAT</button></td></tr>');
+			$("#tabelDetailBody").append('<tr><td>Juli</td><td id="'+pelanggan["Nomor Pelanggan"]+'-7">'+pelanggan["Jul"]+'</td><td><button class="btn btn-success" onclick="pilihPelanggan(7)">CATAT</button></td></tr>');
+			$("#tabelDetailBody").append('<tr><td>Agustus</td><td id="'+pelanggan["Nomor Pelanggan"]+'-8">'+pelanggan["Agu"]+'</td><td><button class="btn btn-success" onclick="pilihPelanggan(8)">CATAT</button></td></tr>');
+			$("#tabelDetailBody").append('<tr><td>September</td><td id="'+pelanggan["Nomor Pelanggan"]+'-9">'+pelanggan["Sep"]+'</td><td><button class="btn btn-success" onclick="pilihPelanggan(9)">CATAT</button></td></tr>');
+			$("#tabelDetailBody").append('<tr><td>Oktober</td><td id="'+pelanggan["Nomor Pelanggan"]+'-10">'+pelanggan["Okt"]+'</td><td><button class="btn btn-success" onclick="pilihPelanggan(10)">CATAT</button></td></tr>');
+			$("#tabelDetailBody").append('<tr><td>November</td><td id="'+pelanggan["Nomor Pelanggan"]+'-11">'+pelanggan["Nov"]+'</td><td><button class="btn btn-success" onclick="pilihPelanggan(11)">CATAT</button></td></tr>');
+			$("#tabelDetailBody").append('<tr><td>Desember</td><td id="'+pelanggan["Nomor Pelanggan"]+'-12">'+pelanggan["Des"]+'</td><td><button class="btn btn-success" onclick="pilihPelanggan(12)">CATAT</button></td></tr>');
+			
+			if(sessionStorage.getItem('ubah-'+sessionStorage.getItem('pilihPelanggan'))=='ya'){
+				for(i=1;i<=12;i++){
+					if(sessionStorage.getItem(sessionStorage.getItem('pilihPelanggan')+"-"+i)){
+						$("#"+sessionStorage.getItem('pilihPelanggan')+"-"+i).html(sessionStorage.getItem(sessionStorage.getItem('pilihPelanggan')+"-"+i));
+					}
+				}
+			}
+							
+			$("#welcomePetugas").hide();
+			$("#catatSemua").hide();
+			$("#detailPelanggan").show();
+		}else{
+			Swal.fire({
+				icon: 'error',
+				title: 'Error',
+				text: 'Gagal memuat data'
+			});
+		};
+	}
+	function lihatBayar(nometer){
+		pelanggan = dataPelanggan.find(item => item["Nomor Pelanggan"] == nometer);
+		if(pelanggan){
+			//alert(pelanggan["Nama"]);
+			sessionStorage.setItem('pilihPelangganB',pelanggan["Nomor Pelanggan"]);
+			sessionStorage.setItem('pilihBarisB',pelanggan["Baris Data"]);
+			$("#detailNomorBayar").html(pelanggan["Nomor Pelanggan"]+" | "+localStorage.getItem('kat'+pelanggan["Kategori"]));
+			$("#detailNamaBayar").html(pelanggan["Nama"]);
+			$("#detailAlamatbayar").html(pelanggan["Alamat"]);
+			
+			$("#tabelDetailPembayaranBody").html('');
+			$("#tabelDetailPembayaranBody").append('<tr><td>Tahun Lalu</td><td id="Bmeteran-0">'+pelanggan["Tahun Lalu"]+'</td><td></td><td></td><td></td></tr>');
+			$("#tabelDetailPembayaranBody").append('<tr><td>Januari</td><td id="Bmeteran-1">'+pelanggan["Jan"]+'</td><td id="Bterpakai-1"></td><td id="Bbiaya-1"></td><td id="Baksi-1"><button class="btn btn-success" onclick="pilihPelangganB(1)">BAYAR</button></td></tr>');
+			$("#tabelDetailPembayaranBody").append('<tr><td>Februari</td><td id="Bmeteran-2">'+pelanggan["Feb"]+'</td><td id="Bterpakai-2"></td><td id="Bbiaya-2"></td><td id="Baksi-2"><button class="btn btn-success" onclick="pilihPelangganB(2)">BAYAR</button></td></tr>');
+			$("#tabelDetailPembayaranBody").append('<tr><td>Maret</td><td id="Bmeteran-3">'+pelanggan["Mar"]+'</td><td id="Bterpakai-3"></td><td id="Bbiaya-3"></td><td id="Baksi-3"><button class="btn btn-success" onclick="pilihPelangganB(3)">BAYAR</button></td></tr>');
+			$("#tabelDetailPembayaranBody").append('<tr><td>April</td><td id="Bmeteran-4">'+pelanggan["Apr"]+'</td><td id="Bterpakai-4"></td><td id="Bbiaya-4"></td><td id="Baksi-4"><button class="btn btn-success" onclick="pilihPelangganB(4)">BAYAR</button></td></tr>');
+			$("#tabelDetailPembayaranBody").append('<tr><td>Mei</td><td id="Bmeteran-5">'+pelanggan["Mei"]+'</td><td id="Bterpakai-5"></td><td id="Bbiaya-5"></td><td id="Baksi-5"><button class="btn btn-success" onclick="pilihPelangganB(5)">BAYAR</button></td></tr>');
+			$("#tabelDetailPembayaranBody").append('<tr><td>Juni</td><td id="Bmeteran-6">'+pelanggan["Jun"]+'</td><td id="Bterpakai-6"></td><td id="Bbiaya-6"></td><td id="Baksi-6"><button class="btn btn-success" onclick="pilihPelangganB(6)">BAYAR</button></td></tr>');
+			$("#tabelDetailPembayaranBody").append('<tr><td>Juli</td><td id="Bmeteran-7">'+pelanggan["Jul"]+'</td><td id="Bterpakai-7"></td><td id="Bbiaya-7"></td><td id="Baksi-7"><button class="btn btn-success" onclick="pilihPelangganB(7)">BAYAR</button></td></tr>');
+			$("#tabelDetailPembayaranBody").append('<tr><td>Agustus</td><td id="Bmeteran-8">'+pelanggan["Agu"]+'</td><td id="Bterpakai-8"></td><td id="Bbiaya-8"></td><td id="Baksi-8"><button class="btn btn-success" onclick="pilihPelangganB(8)">BAYAR</button></td></tr>');
+			$("#tabelDetailPembayaranBody").append('<tr><td>September</td><td id="Bmeteran-9">'+pelanggan["Sep"]+'</td><td id="Bterpakai-9"></td><td id="Bbiaya-9"></td><td id="Baksi-9"><button class="btn btn-success" onclick="pilihPelangganB(9)">BAYAR</button></td></tr>');
+			$("#tabelDetailPembayaranBody").append('<tr><td>Oktober</td><td id="Bmeteran-10">'+pelanggan["Okt"]+'</td><td id="Bterpakai-10"></td><td id="Bbiaya-10"></td><td id="Baksi-10"><button class="btn btn-success" onclick="pilihPelangganB(10)">BAYAR</button></td></tr>');
+			$("#tabelDetailPembayaranBody").append('<tr><td>November</td><td id="Bmeteran-11">'+pelanggan["Nov"]+'</td><td id="Bterpakai-11"></td><td id="Bbiaya-11"></td><td id="Baksi-11"><button class="btn btn-success" onclick="pilihPelangganB(11)">BAYAR</button></td></tr>');
+			$("#tabelDetailPembayaranBody").append('<tr><td>Desember</td><td id="Bmeteran-12">'+pelanggan["Des"]+'</td><td id="Bterpakai-12"></td><td id="Bbiaya-12"></td><td id="Baksi-12"><button class="btn btn-success" onclick="pilihPelangganB(12)">BAYAR</button></td></tr>');
+			
+			// kunci
+			kat = pelanggan["Kategori"]
+			// Biaya
+			for(i=1;i<=4;i++){
+				// biaya kubik
+				bi=localStorage.getItem('kat'+kat+'biaya'+i).split('#');
+				minmax=bi[0].split('-');
+				sessionStorage.setItem('min'+i,minmax[0]);
+				for(j=1;j<=12;j++){
+					sessionStorage.setItem('biaya-'+j+'-'+i,bi[j]);
+				}
+			}
+			// biaya admin & biaya lain
+			ba=localStorage.getItem('kat'+kat+'biayaAdmin').split('#');
+			bl=localStorage.getItem('kat'+kat+'biayaLain').split('#');
+			
+			// Hitung kubik terpakai
+			for(i=1;i<=12;i++){
+				sblm = i-1;
+				ini = i;
+				metersblm = parseFloat($('#Bmeteran-'+sblm).text())
+				meterini = parseFloat($('#Bmeteran-'+ini).text());
+				kubik = meterini-metersblm;
+				//console.log('kubik'+i+': '+kubik);
+				if(kubik < 0){kubik = "-"}else if(isNaN(kubik)){kubik = "-"}
+				
+				// Mengambil nilai dari sessionStorage
+				const min1 = parseInt(sessionStorage.getItem("min1"), 10);
+				const min2 = parseInt(sessionStorage.getItem("min2"), 10);
+				const min3 = parseInt(sessionStorage.getItem("min3"), 10);
+				const min4 = parseInt(sessionStorage.getItem("min4"), 10);
+				const biaya1 = parseInt(sessionStorage.getItem("biaya-"+i+"-1"), 10);
+				const biaya2 = parseInt(sessionStorage.getItem("biaya-"+i+"-2"), 10);
+				const biaya3 = parseInt(sessionStorage.getItem("biaya-"+i+"-3"), 10);
+				const biaya4 = parseInt(sessionStorage.getItem("biaya-"+i+"-4"), 10);
+				const biayaAdmin = ba[i];
+				const biayaLain = bl[i];
+
+				totalBiaya = 0;
+				// Logika perhitungan
+				if (kubik >= min1 && kubik <= min2) {
+					// Jika kubik >= min1 dan < min2
+					totalBiaya = (kubik * biaya1) + parseFloat(biayaAdmin) + parseFloat(biayaLain);
+					pke = kubik +" x "+formatAngka(biaya1)+"<br/>Adm: "+formatAngka(biayaAdmin)+"<br/>Lain: "+formatAngka(biayaLain);
+				} else if (kubik > min2 && kubik <= min3) {
+					// Jika kubik >= min2 dan < min3
+					const tahap1 = min2 - min1; // Tahap 1 (min1 ke min2)
+					const tahap2 = kubik - min2; // Tahap 2 (sisa kubik di rentang ini)
+					totalBiaya = ((tahap1 * biaya1) + (tahap2 * biaya2)) + parseFloat(biayaAdmin) + parseFloat(biayaLain);
+					pke = tahap1 +" x "+formatAngka(biaya1)+'<br/>'+tahap2 +" x "+formatAngka(biaya2)+"<br/>Adm: "+formatAngka(biayaAdmin)+"<br/>Lain: "+formatAngka(biayaLain);
+				} else if (kubik > min3 && kubik <= min4) {
+					// Jika kubik >= min3 dan < min4
+					const tahap1 = min2 - min1; // Tahap 1 (min1 ke min2)
+					const tahap2 = min3 - min2; // Tahap 2 (min2 ke min3)
+					const tahap3 = kubik - min3; // Tahap 3 (sisa kubik di rentang ini)
+					totalBiaya = ((tahap1 * biaya1) + (tahap2 * biaya2) + (tahap3 * biaya3))+ parseFloat(biayaAdmin) + parseFloat(biayaLain);
+					pke = tahap1 +" x "+formatAngka(biaya1)+'<br/>'+tahap2 +" x "+formatAngka(biaya2)+'<br/>'+tahap3 +" x "+formatAngka(biaya3)+"<br/>Adm: "+formatAngka(biayaAdmin)+"<br/>Lain: "+formatAngka(biayaLain);
+				} else if (kubik > min4) {
+					// Jika kubik >= min4
+					const tahap1 = min2 - min1; // Tahap 1 (min1 ke min2)
+					const tahap2 = min3 - min2; // Tahap 2 (min2 ke min3)
+					const tahap3 = min4 - min3; // Tahap 3 (min3 ke min4)
+					const tahap4 = kubik - min4; // Tahap 4 (sisa kubik di rentang ini)
+					totalBiaya = ((tahap1 * biaya1) + (tahap2 * biaya2) + (tahap3 * biaya3) + (tahap4 * biaya4))+ parseFloat(biayaAdmin) + parseFloat(biayaLain);
+					pke = tahap1 +" x "+formatAngka(biaya1)+'<br/>'+tahap2 +" x "+formatAngka(biaya2)+'<br/>'+tahap3 +" x "+formatAngka(biaya3)+'<br/>'+tahap4 +" x "+formatAngka(biaya4)+"<br/>Adm: "+formatAngka(biayaAdmin)+"<br/>Lain: "+formatAngka(biayaLain);
+				}else if(kubik=="-"){
+					totalBiaya = "-";
+					pke = "-"
+				}
+
+				// Menampilkan hasil
+				//console.log("Total Biaya "+i, totalBiaya);
+				$('#Bterpakai-'+ini).html(kubik);
+				$('#Bbiaya-'+ini).html(pke+'<br/><span id="BbiayaTotal-'+ini+'" style="font-weight:bold">'+formatRupiah(totalBiaya)+'</span>');
+			}
+			
+			// kalau sudah dibayar
+			for(i=1;i<=12;i++){
+				if(sessionStorage.getItem("byr-"+nometer+"-"+i)){
+					isian = sessionStorage.getItem("byr-"+sessionStorage.getItem('pilihPelangganB')+"-"+i).split("#");
+					$('#Baksi-'+i).html('<div>'+formatRupiah(isian[0])+'</div><div style="font-size:small">Dibayar: '+isian[1]+'</div>');
+				}
+			}
+			
+			$("#welcomePetugas").hide();
+			$("#dataStrukSemua").hide();
+			$("#detailPembayaran").show();
+		}else{
+			Swal.fire({
+				icon: 'error',
+				title: 'Error',
+				text: 'Gagal memuat data'
+			});
+		};
+		// lihat data Bayar
+		bayar = dataPembayaran.find(item => item["Nomor Pelanggan"] == nometer);
+		if(bayar){
+			byBul = ["","Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","Nov","Des"]
+			for(i=1;i<=12;i++){
+				if(bayar[byBul[i]+"-Tgl"].length > 0){
+					$('#Baksi-'+i).html('<div>'+formatRupiah(bayar[byBul[i]+"-Nom"])+'</div><div style="font-size:small">Dibayar: '+bayar[byBul[i]+"-Tgl"]+'</div>');
+				}
+			}
+		}
+	}
+	function home(){
+		$("#welcomePetugas").show();
+		$("#catatSemua").hide();
+		$("#dataStruk").hide();
+		$("#halStruk").hide();
+	}
+	function Rekapalltag(){
+		window.open('https://docs.google.com/spreadsheets/d/e/2PACX-1vRmaCnRAD2WI9zF6J5IgVeAA0EIeOuxl0FKR3yuL38-UYGQtVKueRBG8GoEmJ0_0cGGrVkb0BUTMcwp/pubhtml?gid=0&single=true', '_blank');
+	}
+	function kembaliCatat(){
+		$("#welcomePetugas").hide();
+		$("#catatSemua").show();
+		$("#detailPelanggan").hide();
+		$("#halStruk").hide();
+	}
+	function kembaliBayar(){
+		$("#welcomePetugas").hide();
+		$("#dataStrukSemua").show();
+		$("#detailPembayaran").hide();
+		$("#halStruk").hide();
+	}
+	function lihatTagihan(){
+		Swal.fire({
+			title: 'Loading...',
+			text: 'Sedang memuat data..',
+			allowOutsideClick: false,
+			didOpen: () => {
+				Swal.showLoading();
+			}
+		});
+		$.ajax({
+            url: urlGAS + "?mode=pelanggan",
+            method: 'GET',
+            dataType: 'json',
+            success: function(response) {
+				//console.log(response);
+				$('#tabelTagihanBody').html('');
+				dataPelanggan = response;
+				pelanggan = dataPelanggan.find(item => item["Nomor Pelanggan"] == localStorage.getItem("user"));
+				if(pelanggan){
+					$('#tabelTagihanBody').append('<tr><td>Tahun Lalu</td><td id="meteran-0">'+pelanggan["Tahun Lalu"]+'</td><td id="terpakai-0"></td><td id="biaya-0"></td><td id="status-0"></td></tr>');
+					$('#tabelTagihanBody').append('<tr><td>Januari</td><td id="meteran-1">'+pelanggan["Jan"]+'</td><td id="terpakai-1"></td><td id="biaya-1"></td><td id="status-1" class="status">BELUM DIBAYAR</td></tr>');
+					$('#tabelTagihanBody').append('<tr><td>Februari</td><td id="meteran-2">'+pelanggan["Feb"]+'</td><td id="terpakai-2"></td><td id="biaya-2"></td><td id="status-2" class="status">BELUM DIBAYAR</td></tr>');
+					$('#tabelTagihanBody').append('<tr><td>Maret</td><td id="meteran-3">'+pelanggan["Mar"]+'</td><td id="terpakai-3"></td><td id="biaya-3"></td><td id="status-3" class="status">BELUM DIBAYAR</td></tr>');
+					$('#tabelTagihanBody').append('<tr><td>April</td><td id="meteran-4">'+pelanggan["Apr"]+'</td><td id="terpakai-4"></td><td id="biaya-4"></td><td id="status-4" class="status">BELUM DIBAYAR</td></tr>');
+					$('#tabelTagihanBody').append('<tr><td>Mei</td><td id="meteran-5">'+pelanggan["Mei"]+'</td><td id="terpakai-5"></td><td id="biaya-5"></td><td id="status-5" class="status">BELUM DIBAYAR</td></tr>');
+					$('#tabelTagihanBody').append('<tr><td>Juni</td><td id="meteran-6">'+pelanggan["Jun"]+'</td><td id="terpakai-6"></td><td id="biaya-6"></td><td id="status-6" class="status">BELUM DIBAYAR</td></tr>');
+					$('#tabelTagihanBody').append('<tr><td>Juli</td><td id="meteran-7">'+pelanggan["Jul"]+'</td><td id="terpakai-7"></td><td id="biaya-7"></td><td id="status-7" class="status">BELUM DIBAYAR</td></tr>');
+					$('#tabelTagihanBody').append('<tr><td>Agustus</td><td id="meteran-8">'+pelanggan["Agu"]+'</td><td id="terpakai-8"></td><td id="biaya-8"></td><td id="status-8" class="status">BELUM DIBAYAR</td></tr>');
+					$('#tabelTagihanBody').append('<tr><td>September</td><td id="meteran-9">'+pelanggan["Sep"]+'</td><td id="terpakai-9"></td><td id="biaya-9"></td><td id="status-9" class="status">BELUM DIBAYAR</td></tr>');
+					$('#tabelTagihanBody').append('<tr><td>Oktober</td><td id="meteran-10">'+pelanggan["Okt"]+'</td><td id="terpakai-10"></td><td id="biaya-10"></td><td id="status-10" class="status">BELUM DIBAYAR</td></tr>');
+					$('#tabelTagihanBody').append('<tr><td>November</td><td id="meteran-11">'+pelanggan["Nov"]+'</td><td id="terpakai-11"></td><td id="biaya-11"></td><td id="status-11" class="status">BELUM DIBAYAR</td></tr>');
+					$('#tabelTagihanBody').append('<tr><td>Desember</td><td id="meteran-12">'+pelanggan["Des"]+'</td><td id="terpakai-12"></td><td id="biaya-12"></td><td id="status-12" class="status">BELUM DIBAYAR</td></tr>');
+					
+					// kunci
+					kat = pelanggan["Kategori"]
+					// Biaya
+					for(i=1;i<=4;i++){
+						// biaya kubik
+						bi=localStorage.getItem('kat'+kat+'biaya'+i).split('#');
+						minmax=bi[0].split('-');
+						sessionStorage.setItem('min'+i,minmax[0]);
+						for(j=1;j<=12;j++){
+							sessionStorage.setItem('biaya-'+j+'-'+i,bi[j]);
+						}
+					}
+					// biaya admin & biaya lain
+					ba=localStorage.getItem('kat'+kat+'biayaAdmin').split('#');
+					bl=localStorage.getItem('kat'+kat+'biayaLain').split('#');
+					
+					// Hitung kubik terpakai
+					for(i=1;i<=12;i++){
+						sblm = i-1;
+						ini = i;
+						metersblm = parseFloat($('#meteran-'+sblm).text())
+						meterini = parseFloat($('#meteran-'+ini).text());
+						kubik = meterini-metersblm;
+						//console.log('kubik'+i+': '+kubik);
+						if(kubik < 0){kubik = "-"}else if(isNaN(kubik)){kubik = "-"}
+						
+						// Mengambil nilai dari sessionStorage
+						const min1 = parseInt(sessionStorage.getItem("min1"), 10);
+						const min2 = parseInt(sessionStorage.getItem("min2"), 10);
+						const min3 = parseInt(sessionStorage.getItem("min3"), 10);
+						const min4 = parseInt(sessionStorage.getItem("min4"), 10);
+						const biaya1 = parseInt(sessionStorage.getItem("biaya-"+i+"-1"), 10);
+						const biaya2 = parseInt(sessionStorage.getItem("biaya-"+i+"-2"), 10);
+						const biaya3 = parseInt(sessionStorage.getItem("biaya-"+i+"-3"), 10);
+						const biaya4 = parseInt(sessionStorage.getItem("biaya-"+i+"-4"), 10);
+						const biayaAdmin = ba[i];
+						const biayaLain = bl[i];
+
+						totalBiaya = 0;
+						// Logika perhitungan
+						if (kubik >= min1 && kubik <= min2) {
+							// Jika kubik >= min1 dan < min2
+							//totalBiaya = kubik * biaya1;
+							totalBiaya = (kubik * biaya1) + parseFloat(biayaAdmin) + parseFloat(biayaLain);
+						} else if (kubik > min2 && kubik <= min3) {
+							// Jika kubik >= min2 dan < min3
+							const tahap1 = min2 - min1; // Tahap 1 (min1 ke min2)
+							const tahap2 = kubik - min2; // Tahap 2 (sisa kubik di rentang ini)
+							//totalBiaya = (tahap1 * biaya1) + (tahap2 * biaya2);
+							totalBiaya = ((tahap1 * biaya1) + (tahap2 * biaya2)) + parseFloat(biayaAdmin) + parseFloat(biayaLain);
+						} else if (kubik > min3 && kubik <= min4) {
+							// Jika kubik >= min3 dan < min4
+							const tahap1 = min2 - min1; // Tahap 1 (min1 ke min2)
+							const tahap2 = min3 - min2; // Tahap 2 (min2 ke min3)
+							const tahap3 = kubik - min3; // Tahap 3 (sisa kubik di rentang ini)
+							//totalBiaya = (tahap1 * biaya1) + (tahap2 * biaya2) + (tahap3 * biaya3);
+							totalBiaya = ((tahap1 * biaya1) + (tahap2 * biaya2) + (tahap3 * biaya3))+ parseFloat(biayaAdmin) + parseFloat(biayaLain);
+						} else if (kubik > min4) {
+							// Jika kubik >= min4
+							const tahap1 = min2 - min1; // Tahap 1 (min1 ke min2)
+							const tahap2 = min3 - min2; // Tahap 2 (min2 ke min3)
+							const tahap3 = min4 - min3; // Tahap 3 (min3 ke min4)
+							const tahap4 = kubik - min4; // Tahap 4 (sisa kubik di rentang ini)
+							//totalBiaya = (tahap1 * biaya1) + (tahap2 * biaya2) + (tahap3 * biaya3) + (tahap4 * biaya4);
+							totalBiaya = ((tahap1 * biaya1) + (tahap2 * biaya2) + (tahap3 * biaya3) + (tahap4 * biaya4))+ parseFloat(biayaAdmin) + parseFloat(biayaLain);
+						}else if(kubik=="-"){
+							totalBiaya = "-";
+						}
+						
+						// Menampilkan hasil
+						//console.log("Total Biaya "+i, totalBiaya);
+						$('#terpakai-'+ini).text(kubik);
+						$('#biaya-'+ini).text(formatRupiah(totalBiaya));
+					}
+				}else{
+					Swal.fire({
+						icon: 'error',
+						title: 'Error',
+						text: 'Gagal memuat data'
+					});
+				}
+				$('#tagihan').show();
+				$('#btLihatTagihan').text('Muat Ulang');
+				Swal.close();
+				sessionStorage.setItem('model','tagihan');
+				loadPembayaran();
+            },
+            error: function() {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Gagal memuat data'
+                });
+            }
+        });
+	}
+	function formatRupiah(angka) {
+		return 'Rp ' + angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ',-';
+	}
+	
+	function formatAngka(angka) {
+	  if (angka === 0) return '0';
+	  if (!angka) return '0';
+	  return angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+	}
+
+	function formatAngkaBiasa(angka) {
+		const cleanString = angka.replace(/[^0-9]/g, '');
+		return parseInt(cleanString, 10);
+	}
+	function pilihPelanggan(index){
+		if($("#"+sessionStorage.getItem('pilihPelanggan')+"-"+index).text().length > 0){
+			Swal.fire({
+			  title: 'Konfirmasi',
+			  text: "Sudah terisi. Apakah Anda yakin ingin mengubah nilai meteran?",
+			  icon: 'warning',
+			  showCancelButton: true,
+			  confirmButtonText: 'Ya',
+			  cancelButtonText: 'Tidak',
+			}).then((result) => {
+			  if (result.isConfirmed) {
+				// Jika pengguna memilih "Ya"
+				//Swal.fire('Dipilih', 'Anda memilih Ya.', 'success');
+				jadiCatat(index);
+			  } else if (result.dismiss === Swal.DismissReason.cancel) {
+				// Jika pengguna memilih "Tidak"
+				//Swal.fire('Batal', 'Anda memilih Tidak.', 'error');
+				Swal.close();
+			  }
+			});
+
+		}else{
+			jadiCatat(index);
+		}
+	}
+	function jadiCatat(index){
+		bulan = ["","Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+		Swal.fire({
+			title: 'Bulan '+bulan[index],
+			input: 'text', // Jenis input
+			inputPlaceholder: 'Angka Meteran',
+			showCancelButton: true,
+			confirmButtonText: 'Simpan',
+			cancelButtonText: 'Batal',
+			inputValidator: (value) => {
+				if (!value) {
+					return 'Input tidak boleh kosong!';
+				}
+			}
+		}).then((result) => {
+			if (result.isConfirmed) {
+				Swal.fire({
+					title: 'Loading...',
+					text: 'Sedang memproses...',
+					allowOutsideClick: false,
+					didOpen: () => {
+						Swal.showLoading();
+					}
+				});
+				sessionStorage.setItem('ubah-'+sessionStorage.getItem('pilihPelanggan'),'ya');
+				meteran = `${result.value}`;
+				$.ajax({
+					url: urlGAS + "?mode=tulismeteran&meteran=" + meteran + "&bulan=" + index + "&user=" + sessionStorage.getItem('pilihPelanggan') + "&baris=" + sessionStorage.getItem('pilihBaris'),
+					method: 'GET',
+					dataType: 'json',
+					success: function(response) {
+						Swal.close();
+						if (response.status == "success") {
+							Swal.fire({
+								icon: 'success',
+								title: 'Success',
+								text: 'Berhasil Mencatat Meteran',
+								confirmButtonText: 'OK'
+							});
+							sessionStorage.setItem(sessionStorage.getItem('pilihPelanggan')+"-"+index,meteran);
+							if(sessionStorage.getItem('ubah-'+sessionStorage.getItem('pilihPelanggan'))=='ya'){
+								for(i=1;i<=12;i++){
+									if(sessionStorage.getItem(sessionStorage.getItem('pilihPelanggan')+"-"+i)){
+										$("#"+sessionStorage.getItem('pilihPelanggan')+"-"+i).html(sessionStorage.getItem(sessionStorage.getItem('pilihPelanggan')+"-"+i));
+									}
+								}
+							}
+						} else {
+							Swal.fire({
+								icon: 'error',
+								title: 'Error',
+								text: 'Terjadi kesalahan',
+								confirmButtonText: 'OK'
+							});
+						}
+					},
+					error: function() {
+						Swal.close();
+						Swal.fire({
+							icon: 'error',
+							title: 'Error',
+							text: 'Terjadi kesalahan',
+							confirmButtonText: 'OK'
+						});
+					}
+				});
+			}
+		});
+	}
+	function pilihPelangganB(index){
+		jml = $('#BbiayaTotal-'+index).html();
+		Swal.fire({
+			title: 'PEMBAYARAN',
+			html: `
+			  <div style="font-size:xx-large">`+jml+`</div>
+			  <div>Pilih Tanggal Bayar:<br/>
+			  <input type="date" id="dateInput" class="swal2-input" style="margin-bottom: 10px;">
+			  </div>
+			`,
+			focusConfirm: false,
+			preConfirm: () => {
+			  const date = document.getElementById('dateInput').value;
+
+			  if (!date) {
+				Swal.showValidationMessage('Pilih tanggal !');
+				return false;
+			  }
+
+			  return { date };
+			}
+		  }).then((result) => {
+			if (result.isConfirmed) {
+				Swal.fire({
+					title: 'Loading...',
+					text: 'Menyimpan pembayaran..',
+					allowOutsideClick: false,
+					didOpen: () => {
+						Swal.showLoading();
+					}
+				});
+				
+				userbyr = sessionStorage.getItem('pilihPelangganB');
+				blnbyr = index;
+				tglbyr = result.value.date;
+				nombyr = formatAngkaBiasa($('#BbiayaTotal-'+index).html());
+				brsbyr = sessionStorage.getItem('pilihBarisB');
+				
+				//?mode=tulispembayaran&user=160301000001&bulan=2&tanggal=2-2-2025&nominal=20000&baris=6
+				$.ajax({
+					url: urlGAS + "?mode=tulispembayaran&user=" + userbyr + "&bulan=" + blnbyr + "&tanggal=" + tglbyr + "&nominal=" + nombyr + "&baris=" +brsbyr,
+					method: 'GET',
+					dataType: 'json',
+					success: function(response) {
+						Swal.close();
+						if (response.status == "success") {
+							Swal.fire({
+								icon: 'success',
+								title: 'Success',
+								text: 'Berhasil Mencatat Pembayaran',
+								confirmButtonText: 'OK'
+							});
+							sessionStorage.setItem("byr-"+sessionStorage.getItem('pilihPelangganB')+"-"+index,nombyr+"#"+tglbyr);
+						
+							for(i=1;i<=12;i++){
+								if(sessionStorage.getItem("byr-"+sessionStorage.getItem('pilihPelangganB')+"-"+i)){
+									isian = sessionStorage.getItem("byr-"+sessionStorage.getItem('pilihPelangganB')+"-"+i).split("#");
+									$('#Baksi-'+i).html('<div>'+formatRupiah(isian[0])+'</div><div style="font-size:small">Dibayar: '+isian[1]+'</div>');
+								}
+							}
+						} else {
+							Swal.fire({
+								icon: 'error',
+								title: 'Error',
+								text: 'Terjadi kesalahan',
+								confirmButtonText: 'OK'
+							});
+						}
+					},
+					error: function() {
+						Swal.close();
+						Swal.fire({
+							icon: 'error',
+							title: 'Error',
+							text: 'Terjadi kesalahan',
+							confirmButtonText: 'OK'
+						});
+					}
+				});
+			}
+		  });
+	}
+	function siapStruk(){
+		Swal.fire({
+			title: 'Loading...',
+			text: 'Memuat Data Pelanggan',
+			allowOutsideClick: false,
+			didOpen: () => {
+				Swal.showLoading();
+			}
+		});
+		$.ajax({
+            url: urlGAS + "?mode=pelanggan",
+            method: 'GET',
+            dataType: 'json',
+            success: function(response) {
+				//console.log(response);
+				dataPelanggan = response;
+				no=1;
+				response.forEach(function(pelanggan) {
+					kat = localStorage.getItem('kat'+pelanggan["Kategori"])
+					$('#tabelStrukBody').append('<tr><td style="text-align:center"><input type="checkbox" class="pil" id="pil-'+no+'" value="'+pelanggan["Nomor Pelanggan"]+'"></td><td>'+no+'</td><td>'+pelanggan["Nama"]+'<br/>'+pelanggan["Nomor Pelanggan"]+'<br/>Kat: '+kat+'<span id="pelkat-'+no+'" style="display:none">'+pelanggan["Kategori"]+'</span><br/><button class="btn btn-success" onclick="lihatBayar(\''+pelanggan["Nomor Pelanggan"]+'\')" style="font-size:small">Detail</button></td><td id="m0-'+no+'">'+pelanggan["Tahun Lalu"]+'</td><td id="m1-'+no+'">'+pelanggan["Jan"]+'</td><td id="m2-'+no+'">'+pelanggan["Feb"]+'</td><td id="m3-'+no+'">'+pelanggan["Mar"]+'</td><td id="m4-'+no+'">'+pelanggan["Apr"]+'</td><td id="m5-'+no+'">'+pelanggan["Mei"]+'</td><td id="m6-'+no+'">'+pelanggan["Jun"]+'</td><td id="m7-'+no+'">'+pelanggan["Jul"]+'</td><td id="m8-'+no+'">'+pelanggan["Agu"]+'</td><td id="m9-'+no+'">'+pelanggan["Sep"]+'</td><td id="m10-'+no+'">'+pelanggan["Okt"]+'</td><td id="m11-'+no+'">'+pelanggan["Nov"]+'</td><td id="m12-'+no+'">'+pelanggan["Des"]+'</td><td id="pk-'+no+'">-</td></tr>');
+					no++;
+				});
+				$("#dataStruk").show();
+				$("#dataStrukSemua").show();
+				$('#welcomePetugas').hide();
+				$("#catatSemua").hide();
+				dttabel('searchInputStruk','tabelStruk');
+				sessionStorage.setItem('jumlah pelanggan',parseFloat(no)-1);
+				Swal.close();
+				loadPembayaran();
+            },
+            error: function() {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Gagal memuat data'
+                });
+            }
+        });
+	}
+	function loadPembayaran(){
+		Swal.fire({
+			title: 'Loading...',
+			text: 'Memuat Data Pembayaran',
+			allowOutsideClick: false,
+			didOpen: () => {
+				Swal.showLoading();
+			}
+		});
+		$.ajax({
+            url: urlGAS + "?mode=pembayaran",
+            method: 'GET',
+            dataType: 'json',
+            success: function(response) {
+				dataPembayaran = response;
+				//console.log(dataPembayaran);
+				
+				Swal.close();
+				if(sessionStorage.getItem('model')=='tagihan'){
+					bayar = dataPembayaran.find(item => item["Nomor Pelanggan"] == localStorage.getItem('user'));
+					if(bayar){
+						byBul = ["","Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","Nov","Des"]
+						for(i=1;i<=12;i++){
+							if(bayar[byBul[i]+"-Tgl"].length > 0){
+								$('#status-'+i).html('<div>'+formatRupiah(bayar[byBul[i]+"-Nom"])+'</div><div style="font-size:small">Dibayar: '+bayar[byBul[i]+"-Tgl"]+'</div>');
+								$('#status-'+i).removeClass('status');
+								$('#status-'+i).addClass('statusSudah');
+								$('#status-'+i).css('font-weight','bold');
+							}
+						}
+					}
+				}
+            },
+            error: function() {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Gagal memuat data pembayaran!'
+                });
+            }
+        });
+	}
+	function lihatperbulan(){
+		Swal.fire({
+			title: 'Loading...',
+			text: 'Menghitung...',
+			allowOutsideClick: false,
+			didOpen: () => {
+				Swal.showLoading();
+			}
+		});
+		
+		if($('#bulantransaksi').val()=='0'){
+			const $table = $('#tabelStruk');
+			$table.find('td, th').removeClass('hidden');
+			bnyk = sessionStorage.getItem('jumlah pelanggan');
+			for(i=1;i<=bnyk;i++){
+				$('#pk-'+i).text('-');
+				$('#byr-'+i).text('-');
+			}
+			setTimeout(() => {
+				Swal.close();
+			}, 2000);
+		}else{
+			bulan = $('#bulantransaksi').val();
+			index = parseFloat(bulan) + 3;
+			const table = document.getElementById('tabelStruk');
+			const rows = table.rows;
+
+			for (let i = 0; i < rows.length; i++) {
+				const cells = rows[i].cells;
+				for (let j = 3; j <= 15; j++) {
+					cells[j].classList.add('hidden');
+				}
+			}
+
+			for (let i = 0; i < rows.length; i++) {
+				const cells = rows[i].cells;
+				cells[index].classList.remove('hidden');
+			}
+			
+			// Hitung pemakaian
+			bnyk = sessionStorage.getItem('jumlah pelanggan');
+			sblm = parseFloat(bulan)-1;
+			ini = parseFloat(bulan);
+			
+			for(i=1;i<=bnyk;i++){
+				msblm = $('#m'+sblm+'-'+i).text();
+				mini = $('#m'+ini+'-'+i).text();
+				pk = parseFloat(mini)-parseFloat(msblm);
+				if(pk < 0){pk = "-"}else if(isNaN(pk)){pk = "-"}
+				// Menampilkan hasil
+				$('#pk-'+i).text(pk);
+			}
+			setTimeout(() => {
+				Swal.close();
+			}, 2000);
+		}
+	}
+	function pilihsemua(){
+		const checkboxes = document.querySelectorAll('.pil');
+		const allChecked = Array.from(checkboxes).every((checkbox) => checkbox.checked);
+		checkboxes.forEach((checkbox) => {
+			checkbox.checked = !allChecked;
+		});
+	}
+	function struk() {
+		Swal.fire({
+			title: 'Loading...',
+			text: 'Tunggu Sebentar',
+			allowOutsideClick: false,
+			didOpen: () => {
+				Swal.showLoading();
+			}
+		});
+		
+		terpilih = [];
+		if($('#bulantransaksi').val()=='0'){
+			setTimeout(function() {
+				Swal.fire({
+					icon: 'error',
+					title: 'Error',
+					text: 'Harap Pilih Bulan!'
+				});
+			}, 500);
+		}else{
+			$("#halStrukIsi").empty();
+			const checkboxes = document.querySelectorAll('table input[type="checkbox"]');
+			checkboxes.forEach((checkbox) => {
+				if (checkbox.checked) {
+				  terpilih.push(checkbox.value);
+				}
+			});
+			$('#dataStruk').hide();
+			$("#navbardashboard").hide();
+			$('#halStruk').show();
+			masukkanStruk($('#bulantransaksi').val());
+		}
+    }
+	function masukkanStruk(bln){		
+		//console.log(terpilih);
+		bulan = ["","Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+		kol = ["Tahun Lalu","Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","Nov","Des"];
+		sblm = parseFloat(bln)-1;
+		ini = bln;
+		
+		
+		nomer = 1;
+		terpilih.forEach((struk)=>{
+			pelanggan = dataPelanggan.find(item => item["Nomor Pelanggan"] == struk);
+			if(pelanggan){				
+				kat = pelanggan["Kategori"];
+				//console.log('kat'+nomer+': '+kat);
+				
+				for(i=1;i<=4;i++){
+					bi=localStorage.getItem('kat'+kat+'biaya'+i).split('#');
+					minmax=bi[0].split('-');
+					sessionStorage.setItem('min'+i,minmax[0]);
+					for(j=1;j<=12;j++){
+						sessionStorage.setItem('biaya-'+j+'-'+i,bi[j]);
+					}
+				}
+				// biaya admin & biaya lain
+				ba=localStorage.getItem('kat'+kat+'biayaAdmin').split('#');
+				bl=localStorage.getItem('kat'+kat+'biayaLain').split('#');
+				
+				const min1 = parseInt(sessionStorage.getItem("min1"), 10);
+				const min2 = parseInt(sessionStorage.getItem("min2"), 10);
+				const min3 = parseInt(sessionStorage.getItem("min3"), 10);
+				const min4 = parseInt(sessionStorage.getItem("min4"), 10);
+				const biaya1 = parseInt(sessionStorage.getItem("biaya-"+bln+"-1"), 10);
+				const biaya2 = parseInt(sessionStorage.getItem("biaya-"+bln+"-2"), 10);
+				const biaya3 = parseInt(sessionStorage.getItem("biaya-"+bln+"-3"), 10);
+				const biaya4 = parseInt(sessionStorage.getItem("biaya-"+bln+"-4"), 10);
+				const biayaAdmin = ba[bln];
+				const biayaLain = bl[bln];
+
+				//Pemakaian
+				pakai = parseFloat(pelanggan[kol[ini]]) - parseFloat(pelanggan[kol[sblm]]);
+				kubik = pakai;
+				blok1='';
+				blok2='';
+				blok3='';
+				blok4='';
+				totalBiaya = 0;
+				// Logika perhitungan
+				if (kubik >= min1 && kubik <= min2) {
+					// Jika kubik >= min1 dan < min2
+					blok1=kubik;
+					blok2='';
+					blok3='';
+					blok4='';
+					//totalBiaya = kubik * biaya1;
+					totalBiaya = (kubik * biaya1) + parseFloat(biayaAdmin) + parseFloat(biayaLain);
+				} else if (kubik > min2 && kubik <= min3) {
+					// Jika kubik >= min2 dan < min3
+					const tahap1 = min2 - min1; // Tahap 1 (min1 ke min2)
+					const tahap2 = kubik - min2; // Tahap 2 (sisa kubik di rentang ini)
+					blok1=tahap1;
+					blok2=tahap2;
+					blok3='';
+					blok4='';
+					//totalBiaya = (tahap1 * biaya1) + (tahap2 * biaya2);
+					totalBiaya = ((tahap1 * biaya1) + (tahap2 * biaya2)) + parseFloat(biayaAdmin) + parseFloat(biayaLain);
+				} else if (kubik > min3 && kubik <= min4) {
+					// Jika kubik >= min3 dan < min4
+					const tahap1 = min2 - min1; // Tahap 1 (min1 ke min2)
+					const tahap2 = min3 - min2; // Tahap 2 (min2 ke min3)
+					const tahap3 = kubik - min3; // Tahap 3 (sisa kubik di rentang ini)
+					blok1=tahap1;
+					blok2=tahap2;
+					blok3=tahap3;
+					blok4='';
+					//totalBiaya = (tahap1 * biaya1) + (tahap2 * biaya2) + (tahap3 * biaya3);
+					totalBiaya = ((tahap1 * biaya1) + (tahap2 * biaya2) + (tahap3 * biaya3))+ parseFloat(biayaAdmin) + parseFloat(biayaLain);
+				} else if (kubik > min4) {
+					// Jika kubik >= min4
+					const tahap1 = min2 - min1; // Tahap 1 (min1 ke min2)
+					const tahap2 = min3 - min2; // Tahap 2 (min2 ke min3)
+					const tahap3 = min4 - min3; // Tahap 3 (min3 ke min4)
+					const tahap4 = kubik - min4; // Tahap 4 (sisa kubik di rentang ini)
+					blok1=tahap1;
+					blok2=tahap2;
+					blok3=tahap3;
+					blok4=tahap4;
+					//totalBiaya = (tahap1 * biaya1) + (tahap2 * biaya2) + (tahap3 * biaya3) + (tahap4 * biaya4);
+					totalBiaya = ((tahap1 * biaya1) + (tahap2 * biaya2) + (tahap3 * biaya3) + (tahap4 * biaya4))+ parseFloat(biayaAdmin) + parseFloat(biayaLain);
+				}else if(kubik=="-"){
+					blok1='';
+					blok2='';
+					blok3='';
+					blok4='';
+					totalBiaya = "-";
+				}
+				// biaya perblok
+				bb1 = parseFloat(blok1)*parseFloat(biaya1);
+				if(isNaN(bb1)){biayablok1 = '0'}else{biayablok1 = bb1;}
+				bb2 = parseFloat(blok2)*parseFloat(biaya2);
+				if(isNaN(bb2)){biayablok2 = '0'}else{biayablok2 = bb2;}
+				bb3 = parseFloat(blok3)*parseFloat(biaya3);
+				if(isNaN(bb3)){biayablok3 = '0'}else{biayablok3 = bb3;}
+				bb4 = parseFloat(blok4)*parseFloat(biaya4);
+				if(isNaN(bb4)){biayablok4 = '0'}else{biayablok4 = bb4;}
+				
+				if(localStorage.getItem('printerBiasa')=="YA"){
+					$("#halStrukIsi").append(`<table class="tg" style="margin-bottom:20px">
+					<thead>
+					  <tr>
+						<th class="tg-0lax" colspan="7" style="text-align:center;font-weight:bold;">
+							<div>REKENING PEMBAYARAN AIR</div>
+							<div class="namaUsaha" style="text-transform:uppercase">`+localStorage.getItem('namaUsaha')+`</div>
+							<div class="alamatUsaha" style="text-transform:uppercase">`+localStorage.getItem('alamatUsaha')+`</div>
+						</th>
+					  </tr>
+					</thead>
+					<tbody>
+					  <tr>
+						<td class="tg-0lax" colspan="3">No Rek: `+pelanggan["Nomor Pelanggan"]+`<br>Nama: `+pelanggan["Nama"]+`</td>
+						<td class="tg-0lax" colspan="4">Kategori: `+localStorage.getItem('kat'+pelanggan["Kategori"])+`<br>Bulan: `+bulan[bln]+` `+localStorage.getItem('tahunBuku')+`</td>
+					  </tr>
+					  <tr>
+						<td class="tg-0lax" style="text-align:center;font-weight:bold;">Awal</td>
+						<td class="tg-0lax" style="text-align:center;font-weight:bold;">Akhir</td>
+						<td class="tg-0lax" style="text-align:center;font-weight:bold;">Pemakaian</td>
+						<td class="tg-0lax" colspan="4" style="text-align:center;font-weight:bold;">Rincian Pemakaian dan Tarif Dasar</td>
+					  </tr>
+					  <tr>
+						<td class="tg-0lax" style="text-align:center;">`+pelanggan[kol[sblm]]+`</td>
+						<td class="tg-0lax" style="text-align:center;">`+pelanggan[kol[ini]]+`</td>
+						<td class="tg-0lax" style="text-align:center;">`+pakai+`</td>
+						<td class="tg-0lax" style="text-align:center;">Ket</td>
+						<td class="tg-0lax" style="text-align:center;">Tarif</td>
+						<td class="tg-0lax" style="text-align:center;">M3</td>
+						<td class="tg-0lax" style="text-align:center;">Jml. Bayar</td>
+					  </tr>
+					  <tr>
+						<td class="tg-0lax" colspan="2">
+							Biaya Air
+						</td>
+						<td class="tg-0lax">`+formatRupiah(parseFloat(biayablok1)+parseFloat(biayablok3)+parseFloat(biayablok3)+parseFloat(biayablok4))+`</td>
+						<td class="tg-0lax">Umum</td>
+						<td class="tg-0lax" style="text-align:center;">`+formatRupiah(biaya1)+`</td>
+						<td class="tg-0lax" style="text-align:center;">`+blok1+`</td>
+						<td class="tg-0lax" style="text-align:center;">`+formatRupiah(biayablok1)+`</td>
+					  </tr>
+					  <tr>
+						<td class="tg-0lax" colspan="2">
+							Biaya Admin
+						</td>
+						<td class="tg-0lax">`+formatRupiah(biayaAdmin)+`</td>
+						<td class="tg-0lax" colspan="4"></td>
+					  </tr>
+					  <tr>
+						<td class="tg-0lax" colspan="2">
+							Biaya Lainnya
+						</td>
+						<td class="tg-0lax">`+formatRupiah(biayaLain)+`</td>
+						<td class="tg-0lax" colspan="4"></td>
+					  </tr>
+					  <tr>
+						<td class="tg-0lax" colspan="2" style="text-align:right;font-weight:bold;">TOTAL</td>
+						<td class="tg-0lax" style="font-weight:bold;">`+formatRupiah(totalBiaya)+`</td>
+						<td class="tg-0lax" colspan="4"></td>
+					  </tr>
+					  <tr>
+						<td class="tg-0lax" colspan="7">
+							<div>Terbilang: <i>`+hurufDepanBesar(terbilang(totalBiaya))+` Rupiah</i></div>
+						</td>
+					  </tr>
+					</tbody>
+				</table>`);
+			}else if(localStorage.getItem('printerThermal58')=="YA" || localStorage.getItem('printerThermal88')=="YA"){
+				$("#halStrukIsi").append(`
+					<div class="kotakstruk" style="margin:10px auto;padding:10px;border:1px solid gray;">
+						<div style="text-align:center">
+							<button class="btn btn-primary noprint" style="font-size:small;margin:2px auto;padding:2px 5px;" onclick="downloadPDF('`+nomer+`')">Download PDF</button>
+							<button class="btn btn-success noprint" style="font-size:small;margin:2px auto;padding:2px 5px;" onclick="downloadJPG('`+nomer+`')">Download JPG</button>
+						</div>
+						
+						<div id="struk`+nomer+`" class="receipt">
+						<div class="center bold">STRUK PEMBAYARAN AIR</div>
+						<div class="center" style="margin-bottom:10px">Bulan: <span id="bul`+nomer+`">`+bulan[bln]+` `+localStorage.getItem('tahunBuku')+`</span></div>
+						<div class="namaUsaha center" style="text-transform:uppercase">`+localStorage.getItem('namaUsaha')+`</div>
+						<div class="alamatUsaha center" style="text-transform:uppercase">`+localStorage.getItem('alamatUsaha')+`</div>
+						<div class="line"></div>
+						  
+						<div>No Rek: <span id="no`+nomer+`">`+pelanggan["Nomor Pelanggan"]+`</span></div>
+						<div>Nama: `+pelanggan["Nama"]+`</div>
+						<div>Kategori: `+localStorage.getItem('kat'+pelanggan["Kategori"])+`</div>
+						
+						<div class="line"></div>
+
+						<table>
+							<tr><td>Awal: `+pelanggan[kol[sblm]]+`</td><tr>
+							<tr><td>Akhir: `+pelanggan[kol[ini]]+`</td><tr>
+							<tr><td>M3 Pakai: `+formatAngka(pakai)+`</td><tr>
+						</table>
+						<div class="line"></div>
+						<table style="width:100%">
+							<tr>
+								<td>`+formatAngka(blok1)+` x `+formatAngka(biaya1)+`</td>
+								<td class="right">`+formatAngka(biayablok1)+`</td>
+							</tr>
+							<tr>
+								<td>`+formatAngka(blok2)+` x `+formatAngka(biaya2)+`</td>
+								<td class="right">`+formatAngka(biayablok2)+`</td>
+							</tr>
+							<tr>
+								<td>`+formatAngka(blok3)+` x `+formatAngka(biaya3)+`</td>
+								<td class="right">`+formatAngka(biayablok3)+`</td>
+							</tr>
+							<tr>
+								<td>`+formatAngka(blok4)+` x `+formatAngka(biaya4)+`</td>
+								<td class="right">`+formatAngka(biayablok4)+`</td>
+							</tr>
+							<tr>
+								<td>Biaya Admin</td>
+								<td class="right">`+formatAngka(biayaAdmin)+`</td>
+							</tr>
+							<tr>
+								<td>Biaya Lain</td>
+								<td class="right">`+formatAngka(biayaLain)+`</td>
+							</tr>
+							<tr class="line">
+								<td class="bold">TOTAL</td>
+								<td class="bold right">`+formatRupiah(totalBiaya)+`</td>
+							</tr>
+						</table>
+						<div class="line"></div>
+						<div class="center">Kami Bangga Melayani Anda</div>
+						</div>
+					</div>
+				`);
+				if(localStorage.getItem('printerThermal58')=="YA"){
+					$('.kotakstruk').css('width','50mm');
+				}else if(localStorage.getItem('printerThermal88')=="YA"){
+					$('.kotakstruk').css('width','80mm');
+				}
+			}
+		}
+		nomer++;
+		});
+		setTimeout(function() {
+			Swal.close();
+		}, 1000);
+	}
+	
+	async function downloadPDF(id) { 
+	  const { jsPDF } = window.jspdf; // <- tambahkan ini
+	  const element = document.getElementById('struk' + id);
+	  const sbul = document.getElementById('bul' + id).innerText;
+	  const sno = document.getElementById('no' + id).innerText;
+	  
+	  const pxToMm = 0.264583;
+
+	  const canvas = await html2canvas(element, {
+		scale: 2,
+		backgroundColor: "#ffffff",
+		windowWidth: element.scrollWidth,
+		windowHeight: element.scrollHeight,
+	  });
+
+	  const imgData = canvas.toDataURL('image/jpeg', 1.0);
+
+	  const imgProps = {
+		width: canvas.width * pxToMm / 2,
+		height: canvas.height * pxToMm / 2,
+	  };
+
+	  const pdf = new jsPDF({
+		orientation: 'portrait',
+		unit: 'mm',
+		format: [imgProps.width, imgProps.height],
+	  });
+
+	  pdf.addImage(imgData, 'JPEG', 0, 0, imgProps.width, imgProps.height);
+	  pdf.save(`Struk ${sbul} ${sno}.pdf`);
+	}
+	
+	async function downloadJPG(id) {
+	  const element = document.getElementById('struk' + id);
+	  const sbul = document.getElementById('bul' + id).innerText;
+	  const sno = document.getElementById('no' + id).innerText;
+
+	  const canvas = await html2canvas(element, {
+		scale: 2,
+		backgroundColor: "#ffffff",
+		windowWidth: element.scrollWidth,
+		windowHeight: element.scrollHeight,
+	  });
+
+	  const imgData = canvas.toDataURL('image/jpeg', 1.0);
+
+	  // Buat elemen <a> untuk download
+	  const link = document.createElement('a');
+	  link.href = imgData;
+	  link.download = `Struk ${sbul} ${sno}.jpg`;
+	  link.click();
+	}
+
+	function terbilang(angka) {
+		const satuan = [
+			"", "satu", "dua", "tiga", "empat", "lima",
+			"enam", "tujuh", "delapan", "sembilan"
+		];
+		const belasan = [
+			"sepuluh", "sebelas", "dua belas", "tiga belas", "empat belas",
+			"lima belas", "enam belas", "tujuh belas", "delapan belas", "sembilan belas"
+		];
+		const puluhan = [
+			"", "", "dua puluh", "tiga puluh", "empat puluh",
+			"lima puluh", "enam puluh", "tujuh puluh", "delapan puluh", "sembilan puluh"
+		];
+		const ribuan = ["", "ribu", "juta", "miliar", "triliun"];
+
+		if (angka === 0) return "nol";
+		if (angka < 0) return `minus ${angkaKeTerbilang(Math.abs(angka))}`;
+
+		let hasil = "";
+		let grupRibu = 0;
+
+		while (angka > 0) {
+			const tigaDigit = angka % 1000;
+			angka = Math.floor(angka / 1000);
+
+			if (tigaDigit > 0) {
+				let bagian = "";
+				const ratusan = Math.floor(tigaDigit / 100);
+				const sisa = tigaDigit % 100;
+
+				if (ratusan > 0) {
+					bagian += ratusan === 1 ? "seratus" : `${satuan[ratusan]} ratus`;
+				}
+
+				if (sisa > 0) {
+					if (sisa < 10) {
+						bagian += ` ${satuan[sisa]}`;
+					} else if (sisa < 20) {
+						bagian += ` ${belasan[sisa - 10]}`;
+					} else {
+						bagian += ` ${puluhan[Math.floor(sisa / 10)]}`;
+						if (sisa % 10 > 0) {
+							bagian += ` ${satuan[sisa % 10]}`;
+						}
+					}
+				}
+
+				hasil = `${bagian.trim()} ${ribuan[grupRibu]} ${hasil}`.trim();
+			}
+
+			grupRibu++;
+		}
+
+		return hasil.trim();
+	}
+	function hurufDepanBesar(str) {
+		return str.replace(/\b\w/g, function(char) {
+			return char.toUpperCase();
+		});
+	}
+	function keHalSemuaStruk(){
+		$("#halStrukIsi").html("");
+		$("#halStruk").hide();
+		$("#dataStruk").show();
+		$("#navbardashboard").show();
+	}
+	function cekGambar(url) {
+	  const match = url.match(/(?:drive\.google\.com\/(?:file\/d\/|open\?id=)|docs\.google\.com\/uc\?id=)([-\w]{25,})/);
+
+	  if (match && match[1]) {
+		const id = match[1];
+		return 'https://lh3.googleusercontent.com/d/' + id;
+	  } else {
+		return url;
+	  }
+	}
+</script>
+
+<script>
+  document.getElementById('currentYear').textContent = new Date().getFullYear();
+</script>
+
+<script>
+    // Cek apakah browser mendukung Service Worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        // Daftarkan file sw.js
+        navigator.serviceWorker.register('/sw.js')
+          .then(registration => {
+            console.log('Service Worker berhasil didaftarkan: ', registration.scope);
+          })
+          .catch(error => {
+            console.log('Pendaftaran Service Worker gagal: ', error);
+          });
+      });
+    }
+  </script>
+</body>
+</html>
